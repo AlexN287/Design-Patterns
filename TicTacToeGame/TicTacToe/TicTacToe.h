@@ -12,5 +12,6 @@ private:
 public:
 	bool checkWin();
 	void nextMove(std::pair<int, int> position);
+	bool positionEmpty(std::pair<int, int>position);
 };
 
