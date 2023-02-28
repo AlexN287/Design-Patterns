@@ -4,10 +4,11 @@
 class TicTacToe
 {
 private:
-	char board[3][3];
-	int turnNumber;
-	std::string player1;
-	std::string player2;
+	const int boardSize = 3;
+	char m_board[3][3];
+	int m_turnNumber;
+	std::string m_player1;
+	std::string m_player2;
 
 public:
 	bool checkWin();
