@@ -1,6 +1,15 @@
 #include "TicTacToe.h"
 
-bool TicTacToe::checkWin()
+#include<iostream>
+
+ITicTacToePtr ITicTacToe::Produce(EgameType type)
+{
+	if (type == EgameType::Implem1) {
+		return std::make_shared<TicTacToe>();
+	}
+}
+
+bool TicTacToe::CheckWin()const
 {
 	for (int i = 0; i < TicTacToe::boardSize; i++)
 	{
@@ -23,7 +32,7 @@ bool TicTacToe::checkWin()
 	return false;
 }
 
-void TicTacToe::nextMove(std::pair<int, int> position)
+void TicTacToe::NextMove(std::pair<int, int> position)
 {
 	int poz1 = position.first;
 	int poz2 = position.second;
@@ -35,7 +44,7 @@ void TicTacToe::nextMove(std::pair<int, int> position)
 	}
 }
 
-bool TicTacToe::positionEmpty(std::pair<int, int> position)
+bool TicTacToe::PositionEmpty(std::pair<int, int> position)const
 {
 	int poz1 = position.first;
 	int poz2 = position.second;
