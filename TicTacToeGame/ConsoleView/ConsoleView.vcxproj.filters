@@ -18,12 +18,18 @@
     <ClInclude Include="ConsoleView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ConsoleTicTacToeListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleTicTacToeListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

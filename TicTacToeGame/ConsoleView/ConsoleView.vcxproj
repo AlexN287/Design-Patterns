@@ -143,9 +143,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ConsoleTicTacToeListener.h" />
     <ClInclude Include="ConsoleView.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ConsoleTicTacToeListener.cpp" />
     <ClCompile Include="ConsoleView.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
