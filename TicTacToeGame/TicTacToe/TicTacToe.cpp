@@ -2,15 +2,6 @@
 
 #include<iostream>
 
-ITicTacToePtr ITicTacToe::Produce(EgameType type)
-{
-	if (type == EgameType::Implem1) {
-		return std::make_shared<TicTacToe>();
-	}
-
-	return {};
-}
-
 void TicTacToe::AddTicTacToeListener(ITicTacToeListener* listener)
 {
 	listeners.push_back(listener);
@@ -53,13 +44,23 @@ bool TicTacToe::CheckWin()const
 
 void TicTacToe::NextMove(std::pair<int, int> position)
 {
-	int poz1 = position.first;
-	int poz2 = position.second;
-	if (m_turnNumber % 2 == 1)
-		m_board[poz1][poz2] = 'X';
+	std::cout << m_turnNumber<<'\n';
+	if (PositionEmpty(position))
+	{
+		int poz1 = position.first;
+		int poz2 = position.second;
+		if (m_turnNumber % 2 == 1)
+			m_board[poz1][poz2] = 'X',std::cout<<"X" << '\n';
+		else
+		{
+			m_board[poz1][poz2] = 'O';
+			std::cout << "O" << '\n';
+		}
+		m_turnNumber++;
+	}
 	else
 	{
-		m_board[poz1][poz2] = 'O';
+		std::cout << "Position occupied.";
 	}
 }
 
