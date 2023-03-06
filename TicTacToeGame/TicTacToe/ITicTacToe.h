@@ -18,6 +18,8 @@ class ITicTacToe
 public:
 	static ITicTacToePtr Produce(EgameType type);
 
+	virtual std::array<std::array<char, 3>, 3> GetBoard() const = 0;
+
 	virtual void AddTicTacToeListener(ITicTacToeListener* listener) = 0;
 	virtual void RemoveTicTacToeListener(ITicTacToeListener* listener) = 0;
 
