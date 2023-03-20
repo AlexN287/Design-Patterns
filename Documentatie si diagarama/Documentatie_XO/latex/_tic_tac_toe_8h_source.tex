@@ -1,0 +1,44 @@
+\hypertarget{_tic_tac_toe_8h_source}{}\doxysection{Tic\+Tac\+Toe.\+h}
+\label{_tic_tac_toe_8h_source}\index{D:/An\_2\_sem2/DP/Proiect\_xo/TicTacToeGame/TicTacToe/TicTacToe.h@{D:/An\_2\_sem2/DP/Proiect\_xo/TicTacToeGame/TicTacToe/TicTacToe.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}ITicTacToe.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}IBoard.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }TicTacToe\ :\textcolor{keyword}{public}\ \mbox{\hyperlink{class_i_tic_tac_toe}{ITicTacToe}}}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ TicTacToe()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00014\ \ \ \ \ \string~TicTacToe()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{class_i_tic_tac_toe_ac538a5ac42cc20222d279eb7349602f0}{GetValue}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_tic_tac_toe_a7ec14b96267e1854a95714f2278fdc73}{CheckWin}}()\textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_tic_tac_toe_a3fa9b7f9db723cb8a22f6389ca7f9273}{NextMove}}(std::pair<int,\ int>\ position)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_tic_tac_toe_abb8a61c2b80b6ba56c4cafc1a36a5347}{PositionEmpty}}(std::pair<int,\ int>position)\textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_tic_tac_toe_ac7e49c674dd08c15a7ef1b029074ba7b}{IsTie}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_tic_tac_toe_a65a231726fe431eb2c0565f56c7633d0}{AddTicTacToeListener}}(ITicTacToeListener*\ listener)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_tic_tac_toe_a32fc3172d3463d9b14161a915b2e4db6}{RemoveTicTacToeListener}}(ITicTacToeListener*\ listener)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ std::string\ \mbox{\hyperlink{class_i_tic_tac_toe_a6d7f9791294b40d89e0d001fb5708b56}{GetCurrentPlayer}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_tic_tac_toe_a2f0466246b1d42fd23c91aef19585f3b}{SetPlayersName}}(\textcolor{keyword}{const}\ std::string\&\ namePlayer\_1,\ \textcolor{keyword}{const}\ std::string\&\ namePlayer\_2)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00030\ \ \ \ \ IBoardPtr\ m\_board\ =\ IBoard::Produce();}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_turnNumber\ =\ 1;}
+\DoxyCodeLine{00032\ \ \ \ \ std::string\ m\_player1;}
+\DoxyCodeLine{00033\ \ \ \ \ std::string\ m\_player2;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ std::vector<ITicTacToeListener*>\ listeners;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+
+\end{DoxyCode}

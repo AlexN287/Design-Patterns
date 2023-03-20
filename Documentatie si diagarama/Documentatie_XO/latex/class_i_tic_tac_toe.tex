@@ -1,0 +1,119 @@
+\hypertarget{class_i_tic_tac_toe}{}\doxysection{ITic\+Tac\+Toe Class Reference}
+\label{class_i_tic_tac_toe}\index{ITicTacToe@{ITicTacToe}}
+
+
+{\ttfamily \#include $<$ITic\+Tac\+Toe.\+h$>$}
+
+
+
+Inherited by Tic\+Tac\+Toe.
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual char \mbox{\hyperlink{class_i_tic_tac_toe_ac538a5ac42cc20222d279eb7349602f0}{Get\+Value}} (int i, int j) const =0
+\item 
+virtual void \mbox{\hyperlink{class_i_tic_tac_toe_a65a231726fe431eb2c0565f56c7633d0}{Add\+Tic\+Tac\+Toe\+Listener}} (ITic\+Tac\+Toe\+Listener $\ast$listener)=0
+\item 
+virtual void \mbox{\hyperlink{class_i_tic_tac_toe_a32fc3172d3463d9b14161a915b2e4db6}{Remove\+Tic\+Tac\+Toe\+Listener}} (ITic\+Tac\+Toe\+Listener $\ast$listener)=0
+\item 
+virtual bool \mbox{\hyperlink{class_i_tic_tac_toe_a7ec14b96267e1854a95714f2278fdc73}{Check\+Win}} () const =0
+\item 
+virtual bool \mbox{\hyperlink{class_i_tic_tac_toe_a3fa9b7f9db723cb8a22f6389ca7f9273}{Next\+Move}} (std\+::pair$<$ int, int $>$ position)=0
+\item 
+virtual bool \mbox{\hyperlink{class_i_tic_tac_toe_abb8a61c2b80b6ba56c4cafc1a36a5347}{Position\+Empty}} (std\+::pair$<$ int, int $>$position) const =0
+\item 
+virtual bool \mbox{\hyperlink{class_i_tic_tac_toe_ac7e49c674dd08c15a7ef1b029074ba7b}{Is\+Tie}} () const =0
+\item 
+virtual std\+::string \mbox{\hyperlink{class_i_tic_tac_toe_a6d7f9791294b40d89e0d001fb5708b56}{Get\+Current\+Player}} () const =0
+\item 
+virtual void \mbox{\hyperlink{class_i_tic_tac_toe_a2f0466246b1d42fd23c91aef19585f3b}{Set\+Players\+Name}} (const std\+::string \&name\+Player\+\_\+1, const std\+::string \&name\+Player\+\_\+2)=0
+\item 
+virtual \mbox{\hyperlink{class_i_tic_tac_toe_aa87ded7655e1d2d2baa1c72b6879c77a}{$\sim$\+ITic\+Tac\+Toe}} ()=default
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static ITic\+Tac\+Toe\+Ptr \mbox{\hyperlink{class_i_tic_tac_toe_a7ff698286d18d24241a100a41671b8e2}{Produce}} (Egame\+Type type)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_i_tic_tac_toe}{ITic\+Tac\+Toe}} interface class is a tool that can be used to create a Tic Tac Toe game. This class defines the basic methods and properties required for a Tic Tac Toe game, which can be implemented by a programmer to create a fully functional game. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_i_tic_tac_toe_aa87ded7655e1d2d2baa1c72b6879c77a}\label{class_i_tic_tac_toe_aa87ded7655e1d2d2baa1c72b6879c77a}} 
+\index{ITicTacToe@{ITicTacToe}!````~ITicTacToe@{$\sim$ITicTacToe}}
+\index{````~ITicTacToe@{$\sim$ITicTacToe}!ITicTacToe@{ITicTacToe}}
+\doxysubsubsection{\texorpdfstring{$\sim$ITicTacToe()}{~ITicTacToe()}}
+{\footnotesize\ttfamily virtual ITic\+Tac\+Toe\+::$\sim$\+ITic\+Tac\+Toe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+The virtual destructor 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_i_tic_tac_toe_a65a231726fe431eb2c0565f56c7633d0}\label{class_i_tic_tac_toe_a65a231726fe431eb2c0565f56c7633d0}} 
+\index{ITicTacToe@{ITicTacToe}!AddTicTacToeListener@{AddTicTacToeListener}}
+\index{AddTicTacToeListener@{AddTicTacToeListener}!ITicTacToe@{ITicTacToe}}
+\doxysubsubsection{\texorpdfstring{AddTicTacToeListener()}{AddTicTacToeListener()}}
+{\footnotesize\ttfamily virtual void ITic\+Tac\+Toe\+::\+Add\+Tic\+Tac\+Toe\+Listener (\begin{DoxyParamCaption}\item[{ITic\+Tac\+Toe\+Listener $\ast$}]{listener }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Add a new listener. This listener object is responsible for handling events. The function takes a single parameter of type ITic\+Tac\+Toe\+Listener$\ast$ which is a pointer to an object that implements the ITic\+Tac\+Toe\+Listener interface. \mbox{\Hypertarget{class_i_tic_tac_toe_a7ec14b96267e1854a95714f2278fdc73}\label{class_i_tic_tac_toe_a7ec14b96267e1854a95714f2278fdc73}} 
+\index{ITicTacToe@{ITicTacToe}!CheckWin@{CheckWin}}
+\index{CheckWin@{CheckWin}!ITicTacToe@{ITicTacToe}}
+\doxysubsubsection{\texorpdfstring{CheckWin()}{CheckWin()}}
+{\footnotesize\ttfamily virtual bool ITic\+Tac\+Toe\+::\+Check\+Win (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+This function check if a player won the game and return true in this case, otherwise return false \mbox{\Hypertarget{class_i_tic_tac_toe_a6d7f9791294b40d89e0d001fb5708b56}\label{class_i_tic_tac_toe_a6d7f9791294b40d89e0d001fb5708b56}} 
+\index{ITicTacToe@{ITicTacToe}!GetCurrentPlayer@{GetCurrentPlayer}}
+\index{GetCurrentPlayer@{GetCurrentPlayer}!ITicTacToe@{ITicTacToe}}
+\doxysubsubsection{\texorpdfstring{GetCurrentPlayer()}{GetCurrentPlayer()}}
+{\footnotesize\ttfamily virtual std\+::string ITic\+Tac\+Toe\+::\+Get\+Current\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+The function does not take any parameters and returns a string representing the name of the player who is currently taking their turn. \mbox{\Hypertarget{class_i_tic_tac_toe_ac538a5ac42cc20222d279eb7349602f0}\label{class_i_tic_tac_toe_ac538a5ac42cc20222d279eb7349602f0}} 
+\index{ITicTacToe@{ITicTacToe}!GetValue@{GetValue}}
+\index{GetValue@{GetValue}!ITicTacToe@{ITicTacToe}}
+\doxysubsubsection{\texorpdfstring{GetValue()}{GetValue()}}
+{\footnotesize\ttfamily virtual char ITic\+Tac\+Toe\+::\+Get\+Value (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+The Get\+Value function takes as parameters the positions of the value that you want to get and return it \mbox{\Hypertarget{class_i_tic_tac_toe_ac7e49c674dd08c15a7ef1b029074ba7b}\label{class_i_tic_tac_toe_ac7e49c674dd08c15a7ef1b029074ba7b}} 
+\index{ITicTacToe@{ITicTacToe}!IsTie@{IsTie}}
+\index{IsTie@{IsTie}!ITicTacToe@{ITicTacToe}}
+\doxysubsubsection{\texorpdfstring{IsTie()}{IsTie()}}
+{\footnotesize\ttfamily virtual bool ITic\+Tac\+Toe\+::\+Is\+Tie (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+The function return true if the match finished with a draw, otherwise return false \mbox{\Hypertarget{class_i_tic_tac_toe_a3fa9b7f9db723cb8a22f6389ca7f9273}\label{class_i_tic_tac_toe_a3fa9b7f9db723cb8a22f6389ca7f9273}} 
+\index{ITicTacToe@{ITicTacToe}!NextMove@{NextMove}}
+\index{NextMove@{NextMove}!ITicTacToe@{ITicTacToe}}
+\doxysubsubsection{\texorpdfstring{NextMove()}{NextMove()}}
+{\footnotesize\ttfamily virtual bool ITic\+Tac\+Toe\+::\+Next\+Move (\begin{DoxyParamCaption}\item[{std\+::pair$<$ int, int $>$}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+This function is responsible for handling the next move of a player and updating the state of the game board accordingly. The function takes in a pair of integers representing the position on the game board where the player wants to place their mark. The function return true if any moves can be done, otherwise return false \mbox{\Hypertarget{class_i_tic_tac_toe_abb8a61c2b80b6ba56c4cafc1a36a5347}\label{class_i_tic_tac_toe_abb8a61c2b80b6ba56c4cafc1a36a5347}} 
+\index{ITicTacToe@{ITicTacToe}!PositionEmpty@{PositionEmpty}}
+\index{PositionEmpty@{PositionEmpty}!ITicTacToe@{ITicTacToe}}
+\doxysubsubsection{\texorpdfstring{PositionEmpty()}{PositionEmpty()}}
+{\footnotesize\ttfamily virtual bool ITic\+Tac\+Toe\+::\+Position\+Empty (\begin{DoxyParamCaption}\item[{std\+::pair$<$ int, int $>$}]{position }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+The function takes in a pair of integers representing the position on the game board that needs to be checked. The function returns a boolean value indicating whether the specified position is empty or not. If the position is empty, the function returns true. If the position is already occupied, the function returns false. \mbox{\Hypertarget{class_i_tic_tac_toe_a7ff698286d18d24241a100a41671b8e2}\label{class_i_tic_tac_toe_a7ff698286d18d24241a100a41671b8e2}} 
+\index{ITicTacToe@{ITicTacToe}!Produce@{Produce}}
+\index{Produce@{Produce}!ITicTacToe@{ITicTacToe}}
+\doxysubsubsection{\texorpdfstring{Produce()}{Produce()}}
+{\footnotesize\ttfamily ITic\+Tac\+Toe\+Ptr ITic\+Tac\+Toe\+::\+Produce (\begin{DoxyParamCaption}\item[{Egame\+Type}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+This function is a factory method that creates an instance of the \mbox{\hyperlink{class_i_tic_tac_toe}{ITic\+Tac\+Toe}} interface based on the specified game type. The function takes a single parameter of type Egame\+Type which represents the type of game to be produced. \mbox{\Hypertarget{class_i_tic_tac_toe_a32fc3172d3463d9b14161a915b2e4db6}\label{class_i_tic_tac_toe_a32fc3172d3463d9b14161a915b2e4db6}} 
+\index{ITicTacToe@{ITicTacToe}!RemoveTicTacToeListener@{RemoveTicTacToeListener}}
+\index{RemoveTicTacToeListener@{RemoveTicTacToeListener}!ITicTacToe@{ITicTacToe}}
+\doxysubsubsection{\texorpdfstring{RemoveTicTacToeListener()}{RemoveTicTacToeListener()}}
+{\footnotesize\ttfamily virtual void ITic\+Tac\+Toe\+::\+Remove\+Tic\+Tac\+Toe\+Listener (\begin{DoxyParamCaption}\item[{ITic\+Tac\+Toe\+Listener $\ast$}]{listener }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Remove a listener. The function takes a single parameter of type ITic\+Tac\+Toe\+Listener$\ast$ which is a pointer to an object that implements the ITic\+Tac\+Toe\+Listener interface. \mbox{\Hypertarget{class_i_tic_tac_toe_a2f0466246b1d42fd23c91aef19585f3b}\label{class_i_tic_tac_toe_a2f0466246b1d42fd23c91aef19585f3b}} 
+\index{ITicTacToe@{ITicTacToe}!SetPlayersName@{SetPlayersName}}
+\index{SetPlayersName@{SetPlayersName}!ITicTacToe@{ITicTacToe}}
+\doxysubsubsection{\texorpdfstring{SetPlayersName()}{SetPlayersName()}}
+{\footnotesize\ttfamily virtual void ITic\+Tac\+Toe\+::\+Set\+Players\+Name (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name\+Player\+\_\+1,  }\item[{const std\+::string \&}]{name\+Player\+\_\+2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+This function set the names of the palyer 1 and player 2 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+An\+\_\+2\+\_\+sem2/\+DP/\+Proiect\+\_\+xo/\+Tic\+Tac\+Toe\+Game/\+Tic\+Tac\+Toe/ITic\+Tac\+Toe.\+h\item 
+D\+:/\+An\+\_\+2\+\_\+sem2/\+DP/\+Proiect\+\_\+xo/\+Tic\+Tac\+Toe\+Game/\+Tic\+Tac\+Toe/ITic\+Tac\+Toe.\+cpp\end{DoxyCompactItemize}
