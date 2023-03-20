@@ -56,3 +56,35 @@ TEST(TicTacToeTest, IsWin)
 	Mock::VerifyAndClearExpectations(&listener);
 	game.RemoveTicTacToeListener(&listener);
 }
+
+TEST(TicTacToeTest, IsTie)
+{
+	TicTacToe game;
+	MockTicTacToeListener listener;
+	game.AddTicTacToeListener(&listener);
+
+	EXPECT_CALL(listener, OnMakeMove(0, 0));
+	EXPECT_CALL(listener, OnMakeMove(0, 1));
+	EXPECT_CALL(listener, OnMakeMove(0, 2));
+	EXPECT_CALL(listener, OnMakeMove(1, 0));
+	EXPECT_CALL(listener, OnMakeMove(1, 2));
+	EXPECT_CALL(listener, OnMakeMove(2, 0));
+	EXPECT_CALL(listener, OnMakeMove(1, 1));
+	EXPECT_CALL(listener, OnMakeMove(2, 2));
+	EXPECT_CALL(listener, OnMakeMove(2, 1));
+	EXPECT_CALL(listener, OnTie(true));
+
+	game.NextMove(std::make_pair(0, 0));
+	game.NextMove(std::make_pair(0, 1));
+	game.NextMove(std::make_pair(0, 2));
+	game.NextMove(std::make_pair(1, 0));
+	game.NextMove(std::make_pair(1, 2));
+	game.NextMove(std::make_pair(2, 0));
+	game.NextMove(std::make_pair(1, 1));
+	game.NextMove(std::make_pair(2, 2));
+	game.NextMove(std::make_pair(2, 1));
+
+
+	Mock::VerifyAndClearExpectations(&listener);
+	game.RemoveTicTacToeListener(&listener);
+}
