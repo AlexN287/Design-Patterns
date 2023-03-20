@@ -7,5 +7,6 @@ class ITicTacToeListener
 {
 public:
 	virtual void OnGameOver(std::string playerName) = 0;
-	//virtual void OnMakeMove(std::pair<int, int> positions) = 0;
+	virtual void OnMakeMove(int i, int j) = 0;
+	virtual void OnTie(bool isTie) = 0;
 };

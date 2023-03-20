@@ -16,7 +16,7 @@ public:
 	char GetValue(int i, int j) const override;
 
 	bool CheckWin()const override;
-	void NextMove(std::pair<int, int> position) override;
+	bool NextMove(std::pair<int, int> position) override;
 	bool PositionEmpty(std::pair<int, int>position)const override;
 	bool IsTie() const override;
 

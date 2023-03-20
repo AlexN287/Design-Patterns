@@ -37,6 +37,7 @@ char TicTacToe::GetValue(int i, int j) const
 	return m_board->GetValue(i,j);
 }
 
+
 bool TicTacToe::CheckWin()const
 {
 	for (int i = 0; i < m_board->GetSize(); i++)
@@ -60,10 +61,12 @@ bool TicTacToe::CheckWin()const
 	return false;
 }
 
-void TicTacToe::NextMove(std::pair<int, int> position)
+bool TicTacToe::NextMove(std::pair<int, int> position)
 {
 	int poz1 = position.first;
 	int poz2 = position.second;
+
+	std::string currentPlayer = GetCurrentPlayer();
 
 	if (poz1 > 2 || poz1 < 0 || poz2 < 0 || poz2>2)
 	{
@@ -78,11 +81,38 @@ void TicTacToe::NextMove(std::pair<int, int> position)
 			m_board->SetValue('O', poz1, poz2);
 		}
 		m_turnNumber++;
+
+		for (ITicTacToeListener* listener : listeners)
+		{
+			listener->OnMakeMove(poz1, poz2);
+		}
 	}
 	else
 	{
-		std::cout << "Position occupied. \n";
+		std::cout << "Position Invalide";
 	}
+
+	if (CheckWin())
+	{
+		for (ITicTacToeListener* listener : listeners)
+		{
+			listener->OnGameOver(currentPlayer);
+		}
+
+		return false;
+	}
+
+	if (IsTie())
+	{
+		for (ITicTacToeListener* listener : listeners)
+		{
+			listener->OnTie(true);
+		}
+
+		return false;
+	}
+
+	return true;
 }
 
 bool TicTacToe::PositionEmpty(std::pair<int, int> position)const
@@ -92,6 +122,7 @@ bool TicTacToe::PositionEmpty(std::pair<int, int> position)const
 
 	if (m_board->GetValue(poz1, poz2) == 'X' || m_board->GetValue(poz1, poz2) == 'O')
 	{
+
 		return false;
 	}
 
@@ -101,6 +132,8 @@ bool TicTacToe::PositionEmpty(std::pair<int, int> position)const
 bool TicTacToe::IsTie() const
 {
 	if (m_turnNumber > 9)
+	{
 		return true;
+	}
 	return false;
 }

@@ -42,12 +42,15 @@ void ConsoleView::Run()
 
 	DisplayBoard();
 
-	while (m_game->CheckWin() == false && m_game->IsTie() == false)
+	std::pair<int, int >positions = GetInputPositions();
+
+	while (m_game->NextMove(positions))
 	{
-		std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
-		std::pair<int,int >positions = GetInputPositions();
-		m_game->NextMove(positions);
 		DisplayBoard();
+		std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
+		positions = GetInputPositions();
+		//m_game->NextMove(positions);
+		
 	}
 
 }
