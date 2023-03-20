@@ -89,7 +89,7 @@ bool TicTacToe::NextMove(std::pair<int, int> position)
 	}
 	else
 	{
-		std::cout << "Position Invalide";
+		std::cout << "Position invalid. \n";
 	}
 
 	if (CheckWin())

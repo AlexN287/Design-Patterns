@@ -9,14 +9,14 @@ void ConsoleTicTacToeListener::OnGameOver(std::string playerName)
 
 void ConsoleTicTacToeListener::OnMakeMove(int i, int j)
 {
-	std::cout << "Position Valide \n";;
+	//std::cout << "Position Valide \n";;
 }
 
 void ConsoleTicTacToeListener::OnTie(bool isTie)
 {
 	if (isTie)
 	{
-		std::cout << "The match resulted with a tie \n";
+		std::cout << "The match resulted with a tie. \n";
 	}
 }
 

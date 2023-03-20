@@ -40,8 +40,9 @@ void ConsoleView::Run()
 	GetPlayersName(namePlayer_1, namePlayer_2);
 	m_game->SetPlayersName(namePlayer_1, namePlayer_2);
 
+	/*
 	DisplayBoard();
-
+	std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
 	std::pair<int, int >positions = GetInputPositions();
 
 	while (m_game->NextMove(positions))
@@ -52,6 +53,13 @@ void ConsoleView::Run()
 		//m_game->NextMove(positions);
 		
 	}
+	*/
+	std::pair<int, int>positions;
+	do {
+		DisplayBoard();
+		std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
+		positions = GetInputPositions();
+	} while (m_game->NextMove(positions));
 
 }
 
