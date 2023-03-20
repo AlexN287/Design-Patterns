@@ -13,9 +13,6 @@ public:
     QtView(QWidget *parent = nullptr);
     ~QtView();
 
-    QString m_player1;
-    QString m_player2;
-
 private slots:
     void on_pushButton_clicked();
     void on_pushButton_1_clicked();
