@@ -20,8 +20,6 @@ std::pair<int, int> ConsoleView::GetInputPositions()
 
 void ConsoleView::DisplayBoard()
 {
-	std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
-
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 3; j++)
@@ -34,7 +32,6 @@ void ConsoleView::DisplayBoard()
 
 		std::cout << std::endl;
 	}
-
 }
 
 void ConsoleView::Run()
@@ -47,6 +44,7 @@ void ConsoleView::Run()
 
 	while (m_game->CheckWin() == false && m_game->IsTie() == false)
 	{
+		std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
 		std::pair<int,int >positions = GetInputPositions();
 		m_game->NextMove(positions);
 		DisplayBoard();
