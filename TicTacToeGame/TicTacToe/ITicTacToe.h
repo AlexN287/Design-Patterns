@@ -18,7 +18,7 @@ class ITicTacToe
 public:
 	static ITicTacToePtr Produce(EgameType type);
 
-	virtual std::array<std::array<char, 3>, 3> GetBoard() const = 0;
+	virtual char GetValue(int i, int j) const = 0;
 
 	virtual void AddTicTacToeListener(ITicTacToeListener* listener) = 0;
 	virtual void RemoveTicTacToeListener(ITicTacToeListener* listener) = 0;
@@ -26,6 +26,10 @@ public:
 	virtual bool CheckWin() const = 0;
 	virtual void NextMove(std::pair<int, int> position) = 0;
 	virtual bool PositionEmpty(std::pair<int, int>position) const = 0;
+	virtual bool IsTie() const = 0;
+
+	virtual std::string GetCurrentPlayer() const = 0;
+	virtual void SetPlayersName(const std::string& namePlayer_1, const std::string& namePlayer_2) = 0;
 
 	virtual ~ITicTacToe() = default;
 };

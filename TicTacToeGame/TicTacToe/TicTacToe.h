@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ITicTacToe.h"
+#include "IBoard.h"
 
 #include <string>
 #include <vector>
@@ -12,22 +13,26 @@ public:
 	TicTacToe() = default;
 	~TicTacToe() = default;
 
-	std::array<std::array<char, 3>, 3> GetBoard() const override;
+	char GetValue(int i, int j) const override;
 
 	bool CheckWin()const override;
 	void NextMove(std::pair<int, int> position) override;
 	bool PositionEmpty(std::pair<int, int>position)const override;
+	bool IsTie() const override;
 
 	void AddTicTacToeListener(ITicTacToeListener* listener) override;
 	void RemoveTicTacToeListener(ITicTacToeListener* listener) override;
 
+	std::string GetCurrentPlayer() const override;
+	void SetPlayersName(const std::string& namePlayer_1, const std::string& namePlayer_2) override;
+
 private:
-	static const int BOARD_SIZE = 3;
-	std::array<std::array<char, BOARD_SIZE>, BOARD_SIZE> m_board;
-	int m_turnNumber;
+	IBoardPtr m_board = IBoard::Produce();
+	int m_turnNumber = 1;
 	std::string m_player1;
 	std::string m_player2;
 
 	std::vector<ITicTacToeListener*> listeners;
+
 };
 

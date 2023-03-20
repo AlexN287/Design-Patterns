@@ -7,14 +7,15 @@
 class ConsoleView
 {
 public:
-	ConsoleView() = default;
+	ConsoleView(ITicTacToePtr game);
 	~ConsoleView() = default;
 
 	std::pair<int, int> GetInputPositions();
 	void DisplayBoard();
 	void Run();
+	void GetPlayersName(std::string& namePlayer_1, std::string& namePlayer_2);
 
 private:
-	ITicTacToePtr game = ITicTacToe::Produce(EgameType::Implem1);
+	ITicTacToePtr m_game;
 };
 

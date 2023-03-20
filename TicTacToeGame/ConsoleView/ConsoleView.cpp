@@ -3,6 +3,11 @@
 #include<iostream>
 #include<array>
 
+ConsoleView::ConsoleView(ITicTacToePtr game) :
+	m_game(game)
+{
+}
+
 std::pair<int, int> ConsoleView::GetInputPositions()
 {
 	int row, column;
@@ -10,18 +15,19 @@ std::pair<int, int> ConsoleView::GetInputPositions()
 	std::cin >> row;
 	std::cout << "Insert column:";
 	std::cin >> column;
-	return std::make_pair(row,column);
+	return std::make_pair(row - 1,column - 1);
 }
 
 void ConsoleView::DisplayBoard()
 {
-	std::array<std::array<char, 3>, 3> board = game->GetBoard();
+	std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
+
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			if (board[i][j] == 'X' || board[i][j] == 'O')
-				std::cout << board[i][j] << ' ';
+			if (m_game->GetValue(i,j) == 'X' || m_game->GetValue(i,j) == 'O')
+				std::cout << m_game->GetValue(i,j) << ' ';
 			else
 				std::cout << '-' << ' ';
 		}
@@ -33,14 +39,26 @@ void ConsoleView::DisplayBoard()
 
 void ConsoleView::Run()
 {
+	std::string namePlayer_1, namePlayer_2;
+	GetPlayersName(namePlayer_1, namePlayer_2);
+	m_game->SetPlayersName(namePlayer_1, namePlayer_2);
+
 	DisplayBoard();
 
-	while (game->CheckWin() == false)
+	while (m_game->CheckWin() == false && m_game->IsTie() == false)
 	{
 		std::pair<int,int >positions = GetInputPositions();
-		game->NextMove(positions);
+		m_game->NextMove(positions);
 		DisplayBoard();
 	}
 
-	//DisplayBoard();
+}
+
+void ConsoleView::GetPlayersName(std::string& namePlayer_1, std::string& namePlayer_2)
+{
+	std::cout << "Enter player 1 name: ";
+	std::cin >> namePlayer_1;
+	std::cout << "Enter player 2 name: ";
+	std::cin >> namePlayer_2;
+	std::cout << "\n";
 }
