@@ -50,7 +50,6 @@ void ConsoleView::Run()
 		DisplayBoard();
 		std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
 		positions = GetInputPositions();
-		//m_game->NextMove(positions);
 		
 	}
 	*/
@@ -60,7 +59,7 @@ void ConsoleView::Run()
 		std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
 		positions = GetInputPositions();
 	} while (m_game->NextMove(positions));
-
+	DisplayBoard();
 }
 
 void ConsoleView::GetPlayersName(std::string& namePlayer_1, std::string& namePlayer_2)
