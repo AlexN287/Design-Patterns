@@ -24,9 +24,9 @@ TEST(TicTacToeTest, IsValidePosition) {
 	EXPECT_CALL(listener, OnMakeMove(1,1));
 	EXPECT_CALL(listener, OnMakeMove(2,2));
 
-	game.NextMove(std::make_pair(1, 1));
-	game.NextMove(std::make_pair(2, 2));
-	game.NextMove(std::make_pair(4, 4));
+	ASSERT_TRUE(game.NextMove(std::make_pair(1, 1)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(2, 2)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(4, 4)));
 
 	Mock::VerifyAndClearExpectations(&listener);
 	game.RemoveTicTacToeListener(&listener);
@@ -46,11 +46,11 @@ TEST(TicTacToeTest, IsWin)
 	EXPECT_CALL(listener, OnGameOver("A"));
 
 	game.SetPlayersName("A", "B");
-	game.NextMove(std::make_pair(0, 0));
-	game.NextMove(std::make_pair(0, 1));
-	game.NextMove(std::make_pair(1, 1));
-	game.NextMove(std::make_pair(1, 2));
-	game.NextMove(std::make_pair(2, 2));
+	ASSERT_TRUE(game.NextMove(std::make_pair(0, 0)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(0, 1)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(1, 1)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(1, 2)));
+	ASSERT_FALSE(game.NextMove(std::make_pair(2, 2)));
 	
 
 	Mock::VerifyAndClearExpectations(&listener);
@@ -72,13 +72,13 @@ TEST(TicTacToeTest, IsWin2)
 	EXPECT_CALL(listener, OnGameOver("Mirel"));
 
 	game.SetPlayersName("Marcel", "Mirel");
-	game.NextMove(std::make_pair(1, 0));
-	game.NextMove(std::make_pair(0, 0));
-	game.NextMove(std::make_pair(0, 0));
-	game.NextMove(std::make_pair(2, 0));
-	game.NextMove(std::make_pair(1, 1));
-	game.NextMove(std::make_pair(2, 1));
-	game.NextMove(std::make_pair(2, 2));
+	ASSERT_TRUE(game.NextMove(std::make_pair(1, 0)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(0, 0)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(0, 0)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(2, 0)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(1, 1)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(2, 1)));
+	ASSERT_FALSE(game.NextMove(std::make_pair(2, 2)));
 
 	Mock::VerifyAndClearExpectations(&listener);
 	game.RemoveTicTacToeListener(&listener);
@@ -101,15 +101,15 @@ TEST(TicTacToeTest, IsTie)
 	EXPECT_CALL(listener, OnMakeMove(2, 1));
 	EXPECT_CALL(listener, OnTie(true));
 
-	game.NextMove(std::make_pair(0, 0));
-	game.NextMove(std::make_pair(0, 1));
-	game.NextMove(std::make_pair(0, 2));
-	game.NextMove(std::make_pair(1, 0));
-	game.NextMove(std::make_pair(1, 2));
-	game.NextMove(std::make_pair(2, 0));
-	game.NextMove(std::make_pair(1, 1));
-	game.NextMove(std::make_pair(2, 2));
-	game.NextMove(std::make_pair(2, 1));
+	ASSERT_TRUE(game.NextMove(std::make_pair(0, 0)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(0, 1)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(0, 2)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(1, 0)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(1, 2)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(2, 0)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(1, 1)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(2, 2)));
+	ASSERT_FALSE(game.NextMove(std::make_pair(2, 1)));
 
 
 	Mock::VerifyAndClearExpectations(&listener);
@@ -133,16 +133,16 @@ TEST(TicTacToeTest, IsTie2)
 	EXPECT_CALL(listener, OnMakeMove(2, 1));
 	EXPECT_CALL(listener, OnTie(true));
 
-	game.NextMove(std::make_pair(0, 1));
-	game.NextMove(std::make_pair(1, 1));
-	game.NextMove(std::make_pair(0, 0));
-	game.NextMove(std::make_pair(0, 2));
-	game.NextMove(std::make_pair(2, 0));
-	game.NextMove(std::make_pair(1, 0));
-	game.NextMove(std::make_pair(1, 2));
-	game.NextMove(std::make_pair(1, 0));
-	game.NextMove(std::make_pair(2, 2));
-	game.NextMove(std::make_pair(2, 1));
+	ASSERT_TRUE(game.NextMove(std::make_pair(0, 1)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(1, 1)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(0, 0)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(0, 2)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(2, 0)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(1, 0)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(1, 2)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(1, 0)));
+	ASSERT_TRUE(game.NextMove(std::make_pair(2, 2)));
+	ASSERT_FALSE(game.NextMove(std::make_pair(2, 1)));
 
 	Mock::VerifyAndClearExpectations(&listener);
 	game.RemoveTicTacToeListener(&listener);
