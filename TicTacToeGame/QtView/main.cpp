@@ -1,5 +1,6 @@
 #include "QtView.h"
 #include <QtWidgets/QApplication>
+#include "QtTicTacToeListener.h"
 
 int main(int argc, char *argv[])
 {

@@ -27,7 +27,8 @@ private slots:
 
 private:
     Ui::QtViewClass_game ui;
-    ITicTacToePtr m_game = ITicTacToe::Produce(EgameType::Implem1);
     void GameLoop(int i, int j, QPushButton* sender);
     QString CharToQString(char c);
+public:
+    ITicTacToePtr m_game;
 };
