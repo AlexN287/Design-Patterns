@@ -11,6 +11,20 @@ int main()
 	ConsoleTicTacToeListener listener;
 	game->AddTicTacToeListener(&listener);
 
+	consoleGame.DisplayGameOptions();
+	int gameOptions;
+	bool isOk = false;
+
+	while (!isOk)
+	{
+		std::cin >> gameOptions;
+		switch (gameOptions)
+		{
+		default:
+			break;
+		}
+	}
+
 	consoleGame.Run();
 	return 0;
 } 

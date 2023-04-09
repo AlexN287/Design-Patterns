@@ -14,6 +14,8 @@ public:
 	void DisplayBoard();
 	void Run();
 	void GetPlayersName(std::string& namePlayer_1, std::string& namePlayer_2);
+	void DisplayGameOptions();
+	void DisplayGameDifficulties();
 
 private:
 	ITicTacToePtr m_game;

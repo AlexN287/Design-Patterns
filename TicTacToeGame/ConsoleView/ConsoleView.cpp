@@ -70,3 +70,16 @@ void ConsoleView::GetPlayersName(std::string& namePlayer_1, std::string& namePla
 	std::cin >> namePlayer_2;
 	std::cout << "\n";
 }
+
+void ConsoleView::DisplayGameOptions()
+{
+	std::cout << "1 - VS Computer \n";
+	std::cout << "2 - VS Player \n";
+}
+
+void ConsoleView::DisplayGameDifficulties()
+{
+	std::cout << "1 - Easy \n";
+	std::cout << "2 - Medium \n";
+	std::cout << "3 - Hard \n";
+}

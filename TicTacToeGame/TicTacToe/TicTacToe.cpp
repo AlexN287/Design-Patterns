@@ -32,6 +32,11 @@ void TicTacToe::SetPlayersName(const std::string& namePlayer_1, const std::strin
 	m_player2 = namePlayer_2;
 }
 
+std::vector<std::pair<int, int>> TicTacToe::GetEmptyCells() const
+{
+	return m_board.GetEmptyCells();
+}
+
 char TicTacToe::GetValue(int i, int j) const
 {
 	return m_board.GetValue(i,j);
