@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ITicTacToe.h"
-#include "IBoard.h"
+#include "Board.h"
 
 #include <string>
 #include <vector>
@@ -27,7 +27,7 @@ public:
 	void SetPlayersName(const std::string& namePlayer_1, const std::string& namePlayer_2) override;
 
 private:
-	IBoardPtr m_board = IBoard::Produce();
+	Board m_board;
 	int m_turnNumber = 1;
 	std::string m_player1;
 	std::string m_player2;

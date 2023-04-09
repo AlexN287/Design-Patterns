@@ -34,28 +34,28 @@ void TicTacToe::SetPlayersName(const std::string& namePlayer_1, const std::strin
 
 char TicTacToe::GetValue(int i, int j) const
 {
-	return m_board->GetValue(i,j);
+	return m_board.GetValue(i,j);
 }
 
 
 bool TicTacToe::CheckWin()const
 {
-	for (int i = 0; i < m_board->GetSize(); i++)
+	for (int i = 0; i < m_board.GetSize(); i++)
 	{
-		if (m_board->GetValue(i,0) != NULL && m_board->GetValue(i, 0) == m_board->GetValue(i, 1) && m_board->GetValue(i, 1) == m_board->GetValue(i, 2))
+		if (m_board.GetValue(i,0) != NULL && m_board.GetValue(i, 0) == m_board.GetValue(i, 1) && m_board.GetValue(i, 1) == m_board.GetValue(i, 2))
 			return true;
 	}
 
-	for (int j = 0; j < m_board->GetSize(); j++)
+	for (int j = 0; j < m_board.GetSize(); j++)
 	{
-		if (m_board->GetValue(0, j) != NULL && m_board->GetValue(0,j) == m_board->GetValue(1,j) && m_board->GetValue(1,j) == m_board->GetValue(2, j))
+		if (m_board.GetValue(0, j) != NULL && m_board.GetValue(0,j) == m_board.GetValue(1,j) && m_board.GetValue(1,j) == m_board.GetValue(2, j))
 			return true;
 	}
 
-	if (m_board->GetValue(0,0) != NULL && m_board->GetValue(0, 0) == m_board->GetValue(1,1) && m_board->GetValue(1,1) == m_board->GetValue(2,2))
+	if (m_board.GetValue(0,0) != NULL && m_board.GetValue(0, 0) == m_board.GetValue(1,1) && m_board.GetValue(1,1) == m_board.GetValue(2,2))
 		return true;
 
-	if (m_board->GetValue(0,2) != NULL && m_board->GetValue(0,2) == m_board->GetValue(1,1) && m_board->GetValue(1,1) == m_board->GetValue(2,0))
+	if (m_board.GetValue(0,2) != NULL && m_board.GetValue(0,2) == m_board.GetValue(1,1) && m_board.GetValue(1,1) == m_board.GetValue(2,0))
 		return true;
 
 	return false;
@@ -75,10 +75,10 @@ bool TicTacToe::NextMove(std::pair<int, int> position)
 	else if (PositionEmpty(position))
 	{
 		if (m_turnNumber % 2 == 1)
-			m_board->SetValue('X', poz1, poz2);
+			m_board.SetValue('X', poz1, poz2);
 		else
 		{
-			m_board->SetValue('O', poz1, poz2);
+			m_board.SetValue('O', poz1, poz2);
 		}
 		m_turnNumber++;
 
@@ -120,7 +120,7 @@ bool TicTacToe::PositionEmpty(std::pair<int, int> position)const
 	int poz1 = position.first;
 	int poz2 = position.second;
 
-	if (m_board->GetValue(poz1, poz2) == 'X' || m_board->GetValue(poz1, poz2) == 'O')
+	if (m_board.GetValue(poz1, poz2) == 'X' || m_board.GetValue(poz1, poz2) == 'O')
 	{
 
 		return false;

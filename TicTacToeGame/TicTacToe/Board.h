@@ -1,18 +1,16 @@
 #pragma once
 
-#include"IBoard.h"
-
 #include<array>
 
-class Board :public IBoard
+class Board
 {
 public:
 	Board() = default;
 	~Board() = default;
 
-	int GetSize() const override;
-	void SetValue(char value, int i, int j) override;
-	char GetValue(int i,int j) const override;
+	int GetSize() const;
+	void SetValue(char value, int i, int j);
+	char GetValue(int i, int j) const;
 
 private:
 	const static int BOARD_SIZE = 3;

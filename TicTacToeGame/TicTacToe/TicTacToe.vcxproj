@@ -141,14 +141,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
-    <ClInclude Include="IBoard.h" />
+    <ClInclude Include="IStrategy.h" />
     <ClInclude Include="ITicTacToe.h" />
     <ClInclude Include="ITicTacToeListener.h" />
     <ClInclude Include="TicTacToe.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
-    <ClCompile Include="IBoard.cpp" />
+    <ClCompile Include="IStrategy.cpp" />
     <ClCompile Include="ITicTacToe.cpp" />
     <ClCompile Include="TicTacToe.cpp" />
   </ItemGroup>
