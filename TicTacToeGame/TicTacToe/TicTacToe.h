@@ -25,7 +25,6 @@ public:
 
 	std::string GetCurrentPlayer() const override;
 	void SetPlayersName(const std::string& namePlayer_1, const std::string& namePlayer_2) override;
-	std::vector<std::pair<int, int>> GetEmptyCells() const override;
 
 private:
 	Board m_board;

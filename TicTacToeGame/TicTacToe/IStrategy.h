@@ -11,8 +11,7 @@ enum class EDifficulty
 {
 	Easy,
 	Medium,
-	Hard,
-	Multiplayer
+	Hard
 };
 
 using IStrategyPtr = std::shared_ptr<class IStrategy>;
@@ -39,7 +38,7 @@ public:
 
 		std::random_device rd;
 		std::mt19937 gen(rd());
-		std::uniform_real_distribution<int> dis(0, emptyCells.size() - 1);
+		std::uniform_int_distribution<int> dis(0, emptyCells.size() - 1);
 
 		std::pair<int, int> randomPosition = emptyCells[dis(gen)];
 
@@ -116,14 +115,14 @@ public:
 
 	std::pair<int, int> GetNextMove(const Board& m_board) const override
 	{
-		std::random_device rd;
+		/*std::random_device rd;
 		std::mt19937 gen(rd());
-		std::uniform_real_distribution<float> dis(0, 1);
+		std::uniform_real_distribution<float> dis(0.0f, 1.0f);
 
 		if (dis(gen) > 0.5)
 		{
 			return GetBestPosition(m_board);
-		}
+		}*/
 
 		return GetRandomPosition(m_board);
 	}
@@ -144,17 +143,17 @@ public:
 	}
 };
 
-class MultiplayerStrategy :public IStrategy
-{
-public:
-
-	EDifficulty GetDifficultyType() const override
-	{
-		return EDifficulty::Multiplayer;
-	}
-
-	std::pair<int, int> GetNextMove(const Board& m_board) const override
-	{
-
-	}
-};
+//class MultiplayerStrategy :public IStrategy
+//{
+//public:
+//
+//	EDifficulty GetDifficultyType() const override
+//	{
+//		return EDifficulty::Multiplayer;
+//	}
+//
+//	std::pair<int, int> GetNextMove(const Board& m_board) const override
+//	{
+//
+//	}
+//};

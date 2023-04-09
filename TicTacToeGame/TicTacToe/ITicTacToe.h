@@ -59,7 +59,5 @@ public:
 	virtual void SetPlayersName(const std::string& namePlayer_1, const std::string& namePlayer_2) = 0;/*!<This function
 	set the names of the palyer 1 and player 2*/
 
-	virtual std::vector<std::pair<int, int>> GetEmptyCells() const = 0;
-
 	virtual ~ITicTacToe() = default; /*!<The virtual destructor*/
 };
