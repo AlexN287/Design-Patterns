@@ -55,19 +55,6 @@ void ConsoleView::Run()
 		GetPlayersName(namePlayer_1, namePlayer_2);
 		m_game->SetPlayersName(namePlayer_1, namePlayer_2);
 
-		/*
-		DisplayBoard();
-		std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
-		std::pair<int, int >positions = GetInputPositions();
-
-		while (m_game->NextMove(positions))
-		{
-			DisplayBoard();
-			std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
-			positions = GetInputPositions();
-
-		}
-		*/
 		std::pair<int, int>positions;
 		do {
 			DisplayBoard();
@@ -104,28 +91,33 @@ void ConsoleView::Run()
 		}
 
 		std::string namePlayer;
-		std::cout << "Enter player name: ";
-		std::cin >> namePlayer;
+		bool nameInvalid = true;
+		while (nameInvalid)
+		{
+			std::cout << "Enter player name: ";
+			std::cin >> namePlayer;
+			if (namePlayer != "CPU")
+				nameInvalid = false;
+		}
 		m_game->SetPlayersName(namePlayer, "CPU");
 
-		bool isPlayer = true;
 		std::pair<int, int>positions;
 		do{
 
-			if (isPlayer) {
+			if (m_game->GetCurrentPlayer()!="CPU") {
 				DisplayBoard();
 				std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
 				positions = GetInputPositions();
-				isPlayer = false;
 			}
 			else
 			{
+				DisplayBoard();
+				std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
 				Board board = GetBoard();
 				positions = difficulty->GetNextMove(board);
-				isPlayer = true;
 			}
 		} while (m_game->NextMove(positions));
-
+		DisplayBoard();
 	}
 }
 
