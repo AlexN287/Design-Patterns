@@ -3,6 +3,7 @@
 #include "ITicTacToe.h"
 
 #include<utility>
+#include"Board.h"
 
 class ConsoleView
 {
@@ -14,6 +15,7 @@ public:
 	void DisplayBoard();
 	void Run();
 	void GetPlayersName(std::string& namePlayer_1, std::string& namePlayer_2);
+	Board GetBoard();
 	void DisplayGameOptions();
 	void DisplayGameDifficulties();
 

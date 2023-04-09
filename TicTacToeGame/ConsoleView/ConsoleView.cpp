@@ -2,6 +2,7 @@
 
 #include<iostream>
 #include<array>
+#include"IStrategy.h"
 
 ConsoleView::ConsoleView(ITicTacToePtr game) :
 	m_game(game)
@@ -36,30 +37,96 @@ void ConsoleView::DisplayBoard()
 
 void ConsoleView::Run()
 {
-	std::string namePlayer_1, namePlayer_2;
-	GetPlayersName(namePlayer_1, namePlayer_2);
-	m_game->SetPlayersName(namePlayer_1, namePlayer_2);
+	DisplayGameOptions();
+	int gameOptions;
+	bool isOk = false;
 
-	/*
-	DisplayBoard();
-	std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
-	std::pair<int, int >positions = GetInputPositions();
-
-	while (m_game->NextMove(positions))
+	while (!isOk)
 	{
-		DisplayBoard();
-		std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
-		positions = GetInputPositions();
-		
+		std::cin >> gameOptions;
+		if (gameOptions == 1 || gameOptions == 2)
+		{
+			isOk = true;
+		}
 	}
-	*/
-	std::pair<int, int>positions;
-	do {
+
+	if (gameOptions == 2) {
+		std::string namePlayer_1, namePlayer_2;
+		GetPlayersName(namePlayer_1, namePlayer_2);
+		m_game->SetPlayersName(namePlayer_1, namePlayer_2);
+
+		/*
 		DisplayBoard();
 		std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
-		positions = GetInputPositions();
-	} while (m_game->NextMove(positions));
-	DisplayBoard();
+		std::pair<int, int >positions = GetInputPositions();
+
+		while (m_game->NextMove(positions))
+		{
+			DisplayBoard();
+			std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
+			positions = GetInputPositions();
+
+		}
+		*/
+		std::pair<int, int>positions;
+		do {
+			DisplayBoard();
+			std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
+			positions = GetInputPositions();
+		} while (m_game->NextMove(positions));
+		DisplayBoard();
+	}
+	else {
+		DisplayGameDifficulties();
+		int gameDifficulties;
+		bool itsOk = false;
+		IStrategyPtr difficulty;
+		while (!itsOk)
+		{
+			std::cin >> gameDifficulties;
+			switch (gameDifficulties)
+			{
+			case 1:
+				difficulty = IStrategy::Produce(EDifficulty::Easy);
+				itsOk = true;
+				break;
+			case 2:
+				difficulty = IStrategy::Produce(EDifficulty::Medium);
+				itsOk = true;
+				break;
+			case 3:
+				difficulty = IStrategy::Produce(EDifficulty::Hard);
+				itsOk = true;
+				break;
+			default:
+				break;
+			}
+		}
+
+		std::string namePlayer;
+		std::cout << "Enter player name: ";
+		std::cin >> namePlayer;
+		m_game->SetPlayersName(namePlayer, "CPU");
+
+		bool isPlayer = true;
+		std::pair<int, int>positions;
+		do{
+
+			if (isPlayer) {
+				DisplayBoard();
+				std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
+				positions = GetInputPositions();
+				isPlayer = false;
+			}
+			else
+			{
+				Board board = GetBoard();
+				positions = difficulty->GetNextMove(board);
+				isPlayer = true;
+			}
+		} while (m_game->NextMove(positions));
+
+	}
 }
 
 void ConsoleView::GetPlayersName(std::string& namePlayer_1, std::string& namePlayer_2)
@@ -69,6 +136,19 @@ void ConsoleView::GetPlayersName(std::string& namePlayer_1, std::string& namePla
 	std::cout << "Enter player 2 name: ";
 	std::cin >> namePlayer_2;
 	std::cout << "\n";
+}
+
+Board ConsoleView::GetBoard()
+{
+	Board new_board;
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			new_board.SetValue(m_game->GetValue(i, j), i, j);
+		}
+	}
+	return new_board;
 }
 
 void ConsoleView::DisplayGameOptions()
@@ -83,3 +163,4 @@ void ConsoleView::DisplayGameDifficulties()
 	std::cout << "2 - Medium \n";
 	std::cout << "3 - Hard \n";
 }
+
