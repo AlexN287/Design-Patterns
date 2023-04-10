@@ -15,6 +15,7 @@ enum class EDifficulty
 };
 
 using IStrategyPtr = std::shared_ptr<class IStrategy>;
+using Positions = std::pair<int, int>;
 
 class IStrategy
 {
@@ -32,7 +33,7 @@ public:
 	virtual EDifficulty GetDifficultyType() const = 0;
 	virtual std::pair<int, int> GetNextMove(const Board& m_board) const = 0;
 
-	std::pair<int, int> GetRandomPosition(const Board& m_board) const
+	Positions GetRandomPosition(const Board& m_board) const
 	{
 		std::vector<std::pair<int, int>> emptyCells = m_board.GetEmptyCells();
 
@@ -45,7 +46,7 @@ public:
 		return randomPosition;
 	}
 
-	std::pair<int, int> GetBestPosition(const Board& m_board) const
+	Positions GetBestPosition(const Board& m_board) const
 	{
 		//NU EU AM SCRIS ASTA
 		for (int i = 0; i < m_board.GetSize(); i++)
@@ -87,60 +88,7 @@ public:
 
 private:
 	Board m_board;
-	std::vector<std::pair<int, int>> m_emptyCells;
-};
-
-class EasyStrategy : public IStrategy
-{
-public:
-
-	EDifficulty GetDifficultyType() const override
-	{
-		return EDifficulty::Easy;
-	}
-
-	std::pair<int, int> GetNextMove(const Board& m_board) const override
-	{
-		return GetRandomPosition(m_board);
-	}
-};
-
-class MediumStrategy : public IStrategy
-{
-public:
-	EDifficulty GetDifficultyType() const override
-	{
-		return EDifficulty::Medium;
-	}
-
-	std::pair<int, int> GetNextMove(const Board& m_board) const override
-	{
-		/*std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_real_distribution<float> dis(0.0f, 1.0f);
-
-		if (dis(gen) > 0.5)
-		{
-			return GetBestPosition(m_board);
-		}*/
-
-		return GetRandomPosition(m_board);
-	}
-};
-
-class HardStrategy : public IStrategy
-{
-public:
-
-	EDifficulty GetDifficultyType() const override
-	{
-		return EDifficulty::Hard;
-	}
-
-	std::pair<int, int> GetNextMove(const Board& m_board) const override
-	{
-		return GetBestPosition(m_board);
-	}
+	Positions m_emptyCells;
 };
 
 //class MultiplayerStrategy :public IStrategy

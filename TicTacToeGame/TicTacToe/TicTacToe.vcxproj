@@ -141,15 +141,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="EasyStrategy.h" />
+    <ClInclude Include="HardStrategy.h" />
     <ClInclude Include="IStrategy.h" />
     <ClInclude Include="ITicTacToe.h" />
     <ClInclude Include="ITicTacToeListener.h" />
+    <ClInclude Include="MediumStrategy.h" />
     <ClInclude Include="TicTacToe.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="EasyStrategy.cpp" />
+    <ClCompile Include="HardStrategy.cpp" />
     <ClCompile Include="IStrategy.cpp" />
     <ClCompile Include="ITicTacToe.cpp" />
+    <ClCompile Include="MediumStrategy.cpp" />
     <ClCompile Include="TicTacToe.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

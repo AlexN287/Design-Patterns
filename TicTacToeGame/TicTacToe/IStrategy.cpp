@@ -1,4 +1,7 @@
 #include "IStrategy.h"
+#include "EasyStrategy.h"
+#include "MediumStrategy.h"
+#include "HardStrategy.h"
 
 IStrategyPtr IStrategy::Produce(EDifficulty type)
 {

@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Strategy">
+      <UniqueIdentifier>{360fe02c-f68b-410d-8fc8-8d4bf9feaa08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Strategy">
+      <UniqueIdentifier>{9b76e984-3c57-4fe8-89e6-eddd7359f5ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TicTacToe.h">
@@ -28,7 +34,16 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IStrategy.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="EasyStrategy.h">
+      <Filter>Header Files\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="MediumStrategy.h">
+      <Filter>Header Files\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="HardStrategy.h">
+      <Filter>Header Files\Strategy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -42,7 +57,16 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IStrategy.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="EasyStrategy.cpp">
+      <Filter>Source Files\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="MediumStrategy.cpp">
+      <Filter>Source Files\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="HardStrategy.cpp">
+      <Filter>Source Files\Strategy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
