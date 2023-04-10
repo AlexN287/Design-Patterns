@@ -31,21 +31,6 @@ public:
 	Positions GetBestPosition(const Board& m_board) const;
 
 private:
-	//Board m_board;
-	//Positions m_emptyCells;
+	
 };
 
-//class MultiplayerStrategy :public IStrategy
-//{
-//public:
-//
-//	EDifficulty GetDifficultyType() const override
-//	{
-//		return EDifficulty::Multiplayer;
-//	}
-//
-//	std::pair<int, int> GetNextMove(const Board& m_board) const override
-//	{
-//
-//	}
-//};

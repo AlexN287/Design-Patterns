@@ -19,9 +19,6 @@ IStrategyPtr IStrategy::Produce(EDifficulty type)
 		return std::make_shared<HardStrategy>();
 		break;
 
-	/*case EDifficulty::Multiplayer:
-		return std::make_shared<MultiplayerStrategy>();
-		break;*/
 	}
 
 	return {};
