@@ -2,21 +2,21 @@
 
 #include<iostream>
 #include<array>
-#include"IStrategy.h"
+//#include"IStrategy.h"
 
 ConsoleView::ConsoleView(ITicTacToePtr game) :
 	m_game(game)
 {
 }
 
-std::pair<int, int> ConsoleView::GetInputPositions()
+Positions ConsoleView::GetInputPositions()
 {
 	int row, column;
 	std::cout << "Insert row:";
 	std::cin >> row;
 	std::cout << "Insert column:";
 	std::cin >> column;
-	return std::make_pair(row - 1,column - 1);
+	return std::make_pair(row - 1, column - 1);
 }
 
 void ConsoleView::DisplayBoard()
@@ -55,7 +55,7 @@ void ConsoleView::Run()
 		GetPlayersName(namePlayer_1, namePlayer_2);
 		m_game->SetPlayersName(namePlayer_1, namePlayer_2);
 
-		std::pair<int, int>positions;
+		Positions positions;
 		do {
 			DisplayBoard();
 			std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
@@ -63,7 +63,8 @@ void ConsoleView::Run()
 		} while (m_game->NextMove(positions));
 		DisplayBoard();
 	}
-	else {
+	else 
+	{
 		DisplayGameDifficulties();
 		int gameDifficulties;
 		bool itsOk = false;
@@ -101,10 +102,11 @@ void ConsoleView::Run()
 		}
 		m_game->SetPlayersName(namePlayer, "CPU");
 
-		std::pair<int, int>positions;
-		do{
+		Positions positions;
 
-			if (m_game->GetCurrentPlayer()!="CPU") {
+		do{
+			if (m_game->GetCurrentPlayer()!="CPU") 
+			{
 				DisplayBoard();
 				std::cout << m_game->GetCurrentPlayer() << "'s turn \n";
 				positions = GetInputPositions();
@@ -117,6 +119,7 @@ void ConsoleView::Run()
 				positions = difficulty->GetNextMove(board);
 			}
 		} while (m_game->NextMove(positions));
+
 		DisplayBoard();
 	}
 }
@@ -133,6 +136,7 @@ void ConsoleView::GetPlayersName(std::string& namePlayer_1, std::string& namePla
 Board ConsoleView::GetBoard()
 {
 	Board new_board;
+
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 3; j++)

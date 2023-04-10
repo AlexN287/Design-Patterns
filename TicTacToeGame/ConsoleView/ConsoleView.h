@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ITicTacToe.h"
+#include "IStrategy.h"
 
 #include<utility>
 #include"Board.h"
@@ -11,7 +12,7 @@ public:
 	ConsoleView(ITicTacToePtr game);
 	~ConsoleView() = default;
 
-	std::pair<int, int> GetInputPositions();
+	Positions GetInputPositions();
 	void DisplayBoard();
 	void Run();
 	void GetPlayersName(std::string& namePlayer_1, std::string& namePlayer_2);
