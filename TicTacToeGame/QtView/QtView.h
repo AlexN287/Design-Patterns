@@ -4,6 +4,8 @@
 #include "ui_QtView.h"
 #include "ITicTacToe.h"
 #include <QString>
+#include "IStrategy.h"
+#include "Board.h"
 
 class QtView : public QMainWindow
 {
@@ -24,11 +26,21 @@ private slots:
     void on_pushButton_7_clicked();
     void on_pushButton_8_clicked();
     void on_pushButton_9_clicked();
+    void on_pushButton_playerMode_clicked();
+    void on_pushButton_computerMode_clicked();
+    void on_pushButton_singlePlayerName_clicked();
+    void on_pushButton_easy_clicked();
+    void on_pushButton_medium_clicked();
+    void on_pushButton_hard_clicked();
 
 private:
     Ui::QtViewClass_game ui;
     void GameLoop(int i, int j, QPushButton* sender);
     QString CharToQString(char c);
-public:
     ITicTacToePtr m_game;
+    bool computerGame = false;
+    IStrategyPtr CPU;
+    Board GetBoard();
+    void DisableButton(std::pair<int, int> cell);
+    int computerMoves = 4;
 };

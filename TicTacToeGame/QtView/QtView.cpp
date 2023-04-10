@@ -3,10 +3,13 @@
 #include "QtTicTacToeListener.h"
 #include <String>
 
+QtTicTacToeListener listener;
+
 QtView::QtView(QWidget* parent)
     : QMainWindow(parent)
 {
     m_game = ITicTacToe::Produce(EgameType::Implem1);
+    m_game->AddTicTacToeListener(&listener);
     ui.setupUi(this);
     ui.stackedWidget->setCurrentIndex(0);
 }
@@ -46,7 +49,7 @@ void QtView::on_pushButton_clicked()
     m_game->SetPlayersName(ui.lineEdit_1->text().toStdString(), ui.lineEdit_2->text().toStdString());
     QString aux = QString::fromStdString(m_game->GetCurrentPlayer());
     ui.label->setText(aux);
-    ui.stackedWidget->setCurrentIndex(1);
+    ui.stackedWidget->setCurrentIndex(3);
 }
 
 void QtView::on_pushButton_1_clicked()
@@ -94,34 +97,58 @@ void QtView::on_pushButton_9_clicked()
     GameLoop(2, 2, ui.pushButton_9);
 }
 
-void QtView::GameLoop(int i, int j, QPushButton* sender)
+void QtView::on_pushButton_playerMode_clicked()
 {
-    QtTicTacToeListener listener;
-    m_game->AddTicTacToeListener(&listener);
-    m_game->NextMove(std::make_pair(i, j));
-    sender->setText(CharToQString(m_game->GetValue(i, j)));
-    /*
-    if (m_game->CheckWin() == true)
-    {
-        QMessageBox msgBox;
-        QString aux = "PLayer ";
-        aux += ui.label->text();
-        aux += " is winner";
-        msgBox.setText(aux);
-        msgBox.exec();
-        qApp->exit();
-    }
-    if (m_game->IsTie() == true)
-    {
-        QMessageBox msgBox;
-        msgBox.setText("Tie");
-        msgBox.exec();
-        qApp->exit();
-    }
-    */
+    ui.stackedWidget->setCurrentIndex(1);
+}
+
+void QtView::on_pushButton_computerMode_clicked()
+{
+    ui.stackedWidget->setCurrentIndex(2);
+}
+
+void QtView::on_pushButton_singlePlayerName_clicked()
+{
+    m_game->SetPlayersName(ui.lineEdit_singlePlayerName->text().toStdString(), "CPU");
     QString aux = QString::fromStdString(m_game->GetCurrentPlayer());
     ui.label->setText(aux);
-    m_game->RemoveTicTacToeListener(&listener);
+    ui.stackedWidget->setCurrentIndex(4);
+    computerGame = true;
+}
+
+void QtView::on_pushButton_easy_clicked()
+{
+    CPU = IStrategy::Produce(EDifficulty::Easy);
+    ui.stackedWidget->setCurrentIndex(3);
+}
+
+void QtView::on_pushButton_medium_clicked()
+{
+    CPU = IStrategy::Produce(EDifficulty::Medium);
+    ui.stackedWidget->setCurrentIndex(3);
+}
+
+void QtView::on_pushButton_hard_clicked()
+{
+    CPU = IStrategy::Produce(EDifficulty::Hard);
+    ui.stackedWidget->setCurrentIndex(3);
+}
+
+void QtView::GameLoop(int i, int j, QPushButton* sender)
+{
+    m_game->NextMove(std::make_pair(i, j));
+    sender->setText(CharToQString(m_game->GetValue(i, j)));
+    sender->setDisabled(true);
+    if (computerGame && computerMoves > 0)
+    {
+        computerMoves--;
+        Board board = GetBoard();
+        std::pair<int, int> computerMove = CPU->GetNextMove(board);
+        m_game->NextMove(computerMove);
+        DisableButton(computerMove);
+    }
+    QString aux = QString::fromStdString(m_game->GetCurrentPlayer());
+    ui.label->setText(aux);
 }
 
 QString QtView::CharToQString(char c)
@@ -130,5 +157,79 @@ QString QtView::CharToQString(char c)
     aux_string += c;
     QString aux = QString::fromStdString(aux_string);
     return aux;
+}
+
+Board QtView::GetBoard()
+{
+    Board new_board;
+
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            new_board.SetValue(m_game->GetValue(i, j), i, j);
+        }
+    }
+    return new_board;
+}
+
+void QtView::DisableButton(std::pair<int, int> cell)
+{
+    int i = cell.first;
+    int j = cell.second;
+    if (i == 0 && j == 0)
+    {
+        ui.pushButton_1->setText(CharToQString(m_game->GetValue(i, j)));
+        ui.pushButton_1->setDisabled(true);
+        return;
+    }
+    if (i == 0 && j == 1)
+    {
+        ui.pushButton_2->setText(CharToQString(m_game->GetValue(i, j)));
+        ui.pushButton_2->setDisabled(true);
+        return;
+    }
+    if (i == 0 && j == 2)
+    {
+        ui.pushButton_3->setText(CharToQString(m_game->GetValue(i, j)));
+        ui.pushButton_3->setDisabled(true);
+        return;
+    }
+    if (i == 1 && j == 0)
+    {
+        ui.pushButton_4->setText(CharToQString(m_game->GetValue(i, j)));
+        ui.pushButton_4->setDisabled(true);
+        return;
+    }
+    if (i == 1 && j == 1)
+    {
+        ui.pushButton_5->setText(CharToQString(m_game->GetValue(i, j)));
+        ui.pushButton_5->setDisabled(true);
+        return;
+    }
+    if (i == 1 && j == 2)
+    {
+        ui.pushButton_6->setText(CharToQString(m_game->GetValue(i, j)));
+        ui.pushButton_6->setDisabled(true);
+        return;
+    }
+    if (i == 2 && j == 0)
+    {
+        ui.pushButton_7->setText(CharToQString(m_game->GetValue(i, j)));
+        ui.pushButton_7->setDisabled(true);
+        return;
+    }
+    if (i == 2 && j == 1)
+    {
+        ui.pushButton_8->setText(CharToQString(m_game->GetValue(i, j)));
+        ui.pushButton_8->setDisabled(true);
+        return;
+    }
+    if (i == 2 && j == 2)
+    {
+        ui.pushButton_9->setText(CharToQString(m_game->GetValue(i, j)));
+        ui.pushButton_9->setDisabled(true);
+        return;
+    }
 }
 
