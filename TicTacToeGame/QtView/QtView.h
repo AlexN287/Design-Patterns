@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include "QtTicTacToeListener.h"
 #include "ui_QtView.h"
 #include "ITicTacToe.h"
 #include <QString>
@@ -43,4 +44,6 @@ private:
     Board GetBoard();
     void DisableButton(std::pair<int, int> cell);
     int computerMoves = 4;
+
+    QtTicTacToeListener listener;
 };

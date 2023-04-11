@@ -1,9 +1,6 @@
 #include "QtView.h"
 #include <QMessageBox>
-#include "QtTicTacToeListener.h"
 #include <String>
-
-QtTicTacToeListener listener;
 
 QtView::QtView(QWidget* parent)
     : QMainWindow(parent)
