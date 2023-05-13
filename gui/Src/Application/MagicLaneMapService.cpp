@@ -176,3 +176,70 @@ void MagicLaneMapService::onAvailableContentUpdate( int type, EStatus state )
     for ( auto it : m_listeners )
         it->OnMapServiceEvent( EMapServiceEvent::NewStyles );
 }
+
+enum class EItemState
+{
+    Completed = 1,
+    Unavailable,
+    InProgress,
+    Paused,
+    Other
+};
+
+class MapElementImpl
+{
+    gem::ContentStoreItem m_item;
+    IResourceRepository* m_resourceRepository;
+    ITextureRepository* m_textureRepository;
+
+public:
+    long int GetID() const
+    {
+        return m_item.getId();
+    }
+
+    std::string GetName() const
+    {
+        //return m_item.getName();
+    }
+
+    EItemState GetState() const
+    {
+        switch (m_item.getStatus())
+        {
+        case gem::EContentStoreItemStatus::CIS_Completed:
+            return EItemState::Completed;
+        case gem::EContentStoreItemStatus::CIS_Unavailable:
+            return EItemState::Unavailable;
+        case gem::EContentStoreItemStatus::CIS_DownloadQueued:
+        case gem::EContentStoreItemStatus::CIS_DownloadWaiting:
+        case gem::EContentStoreItemStatus::CIS_DownloadWaitingFreeNetwork:
+        case gem::EContentStoreItemStatus::CIS_DownloadRunning:
+        case gem::EContentStoreItemStatus::CIS_UpdateWaiting:
+            return EItemState::InProgress;
+        case gem::EContentStoreItemStatus::CIS_Paused:
+            return EItemState::Paused;
+        }
+
+        return EItemState::Other;
+    }
+};
+
+class MapsCollectionImpl
+{
+private:
+    gem::ContentStoreItemList m_items;
+    IResourceRepository* m_resourceRepository;
+    ITextureRepository* m_textureRepository;
+
+public:
+    int GetSize() const
+    {
+        return m_items.size();
+    }
+
+    IMapElementPtr GetItem(int index) const
+    {
+        //return m_items.at(index);
+    }
+};

@@ -55,3 +55,32 @@ public:
 
     virtual ~IMapService() = default;
 };
+
+enum class EItemState
+{
+    Completed = 1,
+    Unavailable,
+    InProgress,
+    Paused,
+    Other
+};
+
+class IMapElement
+{
+public:
+    long int GetID() const;
+    std::string GetName() const;
+    EItemState GetState() const;
+    unsigned int GetTexture() const;
+    void StartDownload();
+    void StopDownload();
+};
+
+using IMapElementPtr = std::shared_ptr<IMapElement>;
+
+class IMapsCollection
+{
+public:
+    int GetSize() const;
+    IMapElementPtr GetItem(int index) const;
+};
