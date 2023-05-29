@@ -5,6 +5,10 @@
 
 #include "IResourceRepository.h"
 #include "ITextureRepository.h"
+#include "NavigationInstructionItem.h"
+#include "StringItem.h"
+#include "RgbaItem.h"
+#include "AbstractGeometryImageRenderSettingsItem.h"
 
 #include <API/GEM_ContentStoreItem.h>
 
@@ -45,7 +49,10 @@ void NavigationView::Render()
     static const ImVec2 DEFAULT_WINDOW_PADDING = ImGui::GetStyle().WindowPadding;
     static const ImVec2 DEFAULT_ITEM_SPACING = ImGui::GetStyle().ItemSpacing;
 
-    gem::NavigationInstruction instruction = m_viewModel->GetNavigationInstruction();
+    //auto textureRepository = m_viewModel->GetTextureRepository();
+    //gem::NavigationInstruction instruction = m_viewModel->GetNavigationInstruction();
+    NavigationInstructionItem instruction(m_viewModel->GetNavigationInstruction());
+    //INavigationInstructionPtr instruction = INavigationInstruction::Produce(m_viewModel->GetNavigationInstruction(), textureRepository);
 
     m_parentWindow->PushFontSize( EFontSize::Big );
 
@@ -62,50 +69,56 @@ void NavigationView::Render()
         int lastColumnSize = windowSize.x - firstColumnSize - secondColumnSize - DPI( 20 );
 
         // prepare data
-        auto distMetersToNextTurn = instruction.getTimeDistanceToNextTurn().getTotalDistance();
+        auto distMetersToNextTurn = instruction.GetTimeDistanceToNextTurn().getTotalDistance();
 
-        gem::String instructionDist;
+        StringItem instructionDist;
 
         if ( distMetersToNextTurn < 1000 )
-            instructionDist = gem::String::formatString( u"(%d m)", distMetersToNextTurn);
+            //instructionDist = gem::String::formatString( u"(%d m)", distMetersToNextTurn);
+            instructionDist.SetString(instructionDist.FormatString(u"(%d m)", distMetersToNextTurn));
         else
-            instructionDist = gem::String::formatString( u"(%.2f km)", distMetersToNextTurn / 1000. );
+            //instructionDist = gem::String::formatString( u"(%.2f km)", distMetersToNextTurn / 1000. );
+            instructionDist.SetString(instructionDist.FormatString(u"(%.2f km)", distMetersToNextTurn / 1000.));
 
-        gem::String instructionText = instruction.getNextTurnInstruction();
-        instructionText.fallbackToLegacyUnicode();
+        StringItem instructionText;
+        instructionText.SetString(instruction.GetNextTurnInstruction());
+        instructionText.FallBackToLegacyUnicode();
 
         static int lastWindowSizeX = 0;
-        static gem::String lastInstructionText = "";
-        static gem::String lastTransformedInstructionText = "";
+        static StringItem lastInstructionText;
+        static StringItem lastTransformedInstructionText;
+        lastInstructionText.SetString("");
+        lastTransformedInstructionText.SetString("");
 
-        if ( instructionText == lastInstructionText && windowSize.x == lastWindowSizeX )
-            instructionText = lastTransformedInstructionText;
+        if ( instructionText.GetString() == lastInstructionText.GetString() && windowSize.x == lastWindowSizeX)
+            instructionText.SetString(lastTransformedInstructionText.GetString());
         else
         {
-            lastInstructionText = instructionText;
+            lastInstructionText.SetString(instructionText.GetString());
 
-            std::vector<gem::String> lines;
-            while ( !instructionText.empty() )
+            std::vector<StringItem> lines;
+            while ( !instructionText.Empty() )
             {
-                auto instructionTextSize = ImGui::CalcTextSize( instructionText.toStdString().c_str() );
+                auto instructionTextSize = ImGui::CalcTextSize( instructionText.ToStdString().c_str() );
                 if ( instructionTextSize.x > lastColumnSize )
                 {
-                    if ( instructionText.find( ' ' ) == -1 )
+                    if ( instructionText.Find( ' ' ) == -1 )
                     {
                         lines.push_back( instructionText );
-                        instructionText.clear();
+                        instructionText.Clear();
                         break;
                     }
 
-                    for ( int i = instructionText.size() - 2; i >= 0; i-- )
+                    for ( int i = instructionText.Size() - 2; i >= 0; i-- )
                     {
-                        if ( instructionText[i] == ' ' )
+                        if ( instructionText.GetElementOnPosition(i) == ' ')
                         {
-                            gem::String str = instructionText.left( i );
-                            if ( ImGui::CalcTextSize( str.toStdString().c_str() ).x < lastColumnSize )
+                            StringItem str; 
+                            str.SetString(instructionText.Left(i));
+                            if ( ImGui::CalcTextSize( str.ToStdString().c_str() ).x < lastColumnSize )
                             {
                                 lines.push_back( str );
-                                instructionText = instructionText.right( instructionText.size() - i - 1 );
+                                instructionText.SetString(instructionText.Right( instructionText.Size() - i - 1 ));
                                 break;
                             }
                         }
@@ -114,25 +127,25 @@ void NavigationView::Render()
                 else
                 {
                     lines.push_back( instructionText );
-                    instructionText.clear();
+                    instructionText.Clear();
                     break;
                 }
             }
 
-            instructionText.clear();
+            instructionText.Clear();
             if ( !lines.empty() )
             {
                 for ( int i = 0; i + 1 < lines.size(); i++ )
-                    instructionText.append( lines[i] ).append( "\n" );
-                instructionText.append( lines.back() );
+                    instructionText.Append( lines[i].GetString()).append("\n");
+                instructionText.Append( lines.back().GetString() );
             }
 
-            lastTransformedInstructionText = instructionText;
+            lastTransformedInstructionText.SetString(instructionText.GetString());
         }
 
         lastWindowSizeX = windowSize.x;
 
-        unsigned int imageId = instruction.getNextTurnDetails().getAbstractGeometryImage().getUid();
+        unsigned int imageId = instruction.GetNextTurnDetails().getAbstractGeometryImage().getUid();
 
         // actual UI
 
@@ -150,14 +163,16 @@ void NavigationView::Render()
 
             ImGui::TableSetColumnIndex( 0 );
 
-            if ( instruction && !instruction.isDefault() )
+            if ( !instruction.IsNavigationInstructionNull() && !instruction.IsDefault())
             {
                 auto textureRepository = m_viewModel->GetTextureRepository();
 
-                gem::Rgba color( 100, 100, 100, 255 );
-                gem::AbstractGeometryImageRenderSettings settings( gem::Rgba::white(), gem::Rgba::black(), color );
+                RgbaItem color( 100, 100, 100, 255 );
+                RgbaItem white(255, 255, 255, 255);
+                RgbaItem black(0,0,0,255);
+                AbstractGeometryImageRenderSettingsItem settings(white.GetColor(), black.GetColor(), color.GetColor());
 
-                auto textureId = textureRepository->GetTexture( instruction.getNextTurnDetails().getAbstractGeometryImage(), settings, INSTRUCTION_ICON_SIZE.x, INSTRUCTION_ICON_SIZE.x );
+                auto textureId = textureRepository->GetTexture( instruction.GetNextTurnDetails().getAbstractGeometryImage(), settings.GetSettings(), INSTRUCTION_ICON_SIZE.x, INSTRUCTION_ICON_SIZE.x);
 
                 ImGui::Image( (void*)textureId, INSTRUCTION_ICON_SIZE );
             }
@@ -165,14 +180,14 @@ void NavigationView::Render()
             ImGui::TableSetColumnIndex( 1 );
 
             ImGui::SetCursorPosY( ImGui::GetCursorPosY() + ( windowSize.y - ImGui::GetFontSize() ) / 4 );
-            if ( instruction && !instruction.isDefault() )
-                ImGui::TextUnformatted( instructionDist.toStdString().c_str() );
+            if ( !instruction.IsNavigationInstructionNull() && !instruction.IsDefault())
+                ImGui::TextUnformatted( instructionDist.ToStdString().c_str() );
 
             ImGui::TableSetColumnIndex( 2 );
 
             ImGui::SetCursorPosY( ImGui::GetCursorPosY() + ( windowSize.y - ImGui::GetFontSize() ) / 4 );
-            if ( instruction && !instruction.isDefault() )
-                ImGui::TextUnformatted( instructionText.toStdString().c_str() );
+            if (!instruction.IsNavigationInstructionNull() && !instruction.IsDefault() )
+                ImGui::TextUnformatted( instructionText.ToStdString().c_str() );
 
             ImGui::EndTable();
         }
@@ -185,7 +200,7 @@ void NavigationView::Render()
     // Remaining distance window
     {
         // prepare data
-        int distMeters = instruction.getRemainingTravelTimeDistance().getTotalDistance();
+        int distMeters = instruction.GetRemainingTravelTimeDistance().getTotalDistance();
 
         char distStr[20];
         if ( distMeters < 1000 )
@@ -193,7 +208,7 @@ void NavigationView::Render()
         else
             sprintf( distStr, "%.2f km", ( distMeters - distMeters % 50 ) / 1000.f );
 
-        int timeSec = instruction.getRemainingTravelTimeDistance().getTotalTime();
+        int timeSec = instruction.GetRemainingTravelTimeDistance().getTotalTime();
         char timeStr[20];
         if ( timeSec < 60 )
             sprintf( timeStr, "%d sec", timeSec + 5 - timeSec % 5 );
@@ -220,7 +235,7 @@ void NavigationView::Render()
     // Speed window
     {
         // prepare data
-        auto position = instruction.getCurrentPosition();
+        auto position = instruction.GetCurrentPosition();
         double speedKMH = position ? position->getSpeed() * 3.6 : 0;
 
         char speedStr[20];

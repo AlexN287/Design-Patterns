@@ -222,6 +222,18 @@
     <ClCompile Include="..\Src\Application\IMapService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\Application\NavigationInstructionItem.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Application\StringItem.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Application\RgbaItem.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Application\AbstractGeometryImageRenderSettingsItem.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\Application\MainUi.h">
@@ -370,6 +382,30 @@
     </ClInclude>
     <ClInclude Include="..\Src\Application\StylesView.h">
       <Filter>Header Files\FrameworksAndDrivers\UI\ViewsImpl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Application\INavigationInstructionItem.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Application\NavigationInstructionItem.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Application\StringItem.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Application\IStringItem.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Application\IRgbaItem.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Application\RgbaItem.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Application\IAbstractGeometryImageRenderSettingsItem.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Application\AbstractGeometryImageRenderSettingsItem.h">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

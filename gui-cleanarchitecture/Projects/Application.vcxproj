@@ -166,6 +166,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Src\Application\AbstractGeometryImageRenderSettingsItem.cpp" />
     <ClCompile Include="..\Src\Application\ActiveFingersCollection.cpp" />
     <ClCompile Include="..\Src\Application\BaseImGuiWindow.cpp" />
     <ClCompile Include="..\Src\Application\BaseSdlWindow.cpp" />
@@ -176,14 +177,17 @@
     <ClCompile Include="..\Src\Application\MapsViewModel.cpp" />
     <ClCompile Include="..\Src\Application\MapView.cpp" />
     <ClCompile Include="..\Src\Application\MagicLaneMapService.cpp" />
+    <ClCompile Include="..\Src\Application\NavigationInstructionItem.cpp" />
     <ClCompile Include="..\Src\Application\NavigationService.cpp" />
     <ClCompile Include="..\Src\Application\NavigationView.cpp" />
     <ClCompile Include="..\Src\Application\NavigationViewModel.cpp" />
     <ClCompile Include="..\Src\Application\OpenGLContextImpl.cpp" />
     <ClCompile Include="..\Src\Application\ResourceRepository.cpp" />
+    <ClCompile Include="..\Src\Application\RgbaItem.cpp" />
     <ClCompile Include="..\Src\Application\RoutesView.cpp" />
     <ClCompile Include="..\Src\Application\RoutesViewModel.cpp" />
     <ClCompile Include="..\Src\Application\SDKUtils.cpp" />
+    <ClCompile Include="..\Src\Application\StringItem.cpp" />
     <ClCompile Include="..\Src\Application\StylesView.cpp" />
     <ClCompile Include="..\Src\Application\StylesViewModel.cpp" />
     <ClCompile Include="..\Src\Application\TextureRepository.cpp" />
@@ -200,6 +204,7 @@
     <ClCompile Include="..\Src\Application\ViewModelFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Src\Application\AbstractGeometryImageRenderSettingsItem.h" />
     <ClInclude Include="..\Src\Application\ActiveFingersCollection.h" />
     <ClInclude Include="..\Src\Application\ApiCallLoggerImpl.h" />
     <ClInclude Include="..\Src\Application\BaseImGuiWindow.h" />
@@ -208,13 +213,17 @@
     <ClInclude Include="..\Src\Application\BitmapImpl.h" />
     <ClInclude Include="..\Src\Application\ContentUpdateListener.h" />
     <ClInclude Include="..\Src\Application\Entities.h" />
+    <ClInclude Include="..\Src\Application\IAbstractGeometryImageRenderSettingsItem.h" />
     <ClInclude Include="..\Src\Application\IMapView.h" />
     <ClInclude Include="..\Src\Application\IMapService.h" />
     <ClInclude Include="..\Src\Application\IMapServiceListener.h" />
+    <ClInclude Include="..\Src\Application\INavigationInstructionItem.h" />
     <ClInclude Include="..\Src\Application\INavigationService.h" />
     <ClInclude Include="..\Src\Application\IOpenGLContext.h" />
     <ClInclude Include="..\Src\Application\IMainWindow.h" />
     <ClInclude Include="..\Src\Application\IResourceRepository.h" />
+    <ClInclude Include="..\Src\Application\IRgbaItem.h" />
+    <ClInclude Include="..\Src\Application\IStringItem.h" />
     <ClInclude Include="..\Src\Application\ITextureRepository.h" />
     <ClInclude Include="..\Src\Application\IViewFactory.h" />
     <ClInclude Include="..\Src\Application\IViewModel.h" />
@@ -224,15 +233,18 @@
     <ClInclude Include="..\Src\Application\MapsViewModel.h" />
     <ClInclude Include="..\Src\Application\MapView.h" />
     <ClInclude Include="..\Src\Application\MagicLaneMapService.h" />
+    <ClInclude Include="..\Src\Application\NavigationInstructionItem.h" />
     <ClInclude Include="..\Src\Application\NavigationService.h" />
     <ClInclude Include="..\Src\Application\NavigationView.h" />
     <ClInclude Include="..\Src\Application\NavigationViewModel.h" />
     <ClInclude Include="..\Src\Application\OpenGLContextImpl.h" />
     <ClInclude Include="..\Src\Application\ProgressListenerImpl.h" />
     <ClInclude Include="..\Src\Application\ResourceRepository.h" />
+    <ClInclude Include="..\Src\Application\RgbaItem.h" />
     <ClInclude Include="..\Src\Application\RoutesView.h" />
     <ClInclude Include="..\Src\Application\RoutesViewModel.h" />
     <ClInclude Include="..\Src\Application\SDKUtils.h" />
+    <ClInclude Include="..\Src\Application\StringItem.h" />
     <ClInclude Include="..\Src\Application\StylesView.h" />
     <ClInclude Include="..\Src\Application\StylesViewModel.h" />
     <ClInclude Include="..\Src\Application\TextureRepository.h" />
