@@ -8,6 +8,8 @@
 
 #include <API/GEM_ContentStoreItem.h>
 
+#include"IMapService.h"
+
 StylesView::StylesView(IMainWindow* parent)
     : BaseView(parent)
     , m_viewModel(nullptr)
@@ -50,7 +52,10 @@ void StylesView::Render()
     }
     else
     {
-        gem::ContentStoreItemList contentStoreItems = resourceRepository->GetStyles();
+        
+        //gem::ContentStoreItemList contentStoreItems = resourceRepository->GetStyles();
+        //s contentStoreItems = IMapsCollection::Produce(resourceRepository->GetStyles(), resourceRepository, textureRepository);
+        IMapsCollectionPtr contentStoreItems = IMapsCollection::Produce(resourceRepository->GetStyles(), resourceRepository, textureRepository);
 
         ImGui::SetNextWindowBgAlpha(0.8f);
 
@@ -78,30 +83,35 @@ void StylesView::Render()
 
             ImGui::TableHeadersRow();
 
-            if (!contentStoreItems.empty())
+            if (!contentStoreItems->isEmpty())
             {
                 int itemIndex = 0;
 
-                for (auto item : contentStoreItems)
+               
+                //for (auto item : contentStoreItems)
+                for (int i = 0; i < contentStoreItems->GetSize(); i++)
                 {
-                    auto itemState = resourceRepository->GetItemState(item);
+                    IMapElementPtr item = contentStoreItems->GetItem(i);
+                    //auto itemState = resourceRepository->GetItemState(item);
+                    auto itemState = item->GetState();
 
                     if (m_stylesFilterIndex != 0 && m_stylesFilterIndex != (int)itemState)
                         continue;
 
-                    gem::String itemName = item.getName();
+                    std::string itemName = item->GetName();
+                   
                     if (itemState == EItemState::Paused)
-                        itemName = gem::String::formatString(u"%s %s", "[PAUSED]", itemName);
+                        itemName = item->FormatStringDownload(u"%s %s", "[PAUSED]");
                     if (itemState == EItemState::InProgress)
-                        itemName = gem::String::formatString(u"[%02d%%] %s", item.getDownloadProgress(), item.getName());
+                        itemName = item->FormatStringDownload(u"[%02d%%] %s");
 
                     ImGui::TableNextRow();
 
                     ImGui::TableSetColumnIndex(0);
 
-                    if (item.isImagePreviewAvailable())
+                    if (item->IsImagePreviewAvailable())
                     {
-                        auto textureId = textureRepository->GetTexture(item.getImagePreview(), STYLE_IMAGE_SIZE.x, STYLE_IMAGE_SIZE.y, false);
+                        auto textureId = item->GetTexture(STYLE_IMAGE_SIZE.x, STYLE_IMAGE_SIZE.y, false);
                         if (textureId != -1)
                             ImGui::Image((void*)textureId, STYLE_IMAGE_SIZE);
                     }
@@ -118,8 +128,10 @@ void StylesView::Render()
                         ImGui::PushStyleColor(ImGuiCol_Button, ImGuiColor_Black);
                         ImGui::BeginDisabled(!m_viewModel->IsConnected() && itemState == EItemState::Paused);
 
-                        if (ImGui::Button(itemName.toStdString().c_str()))
-                            resourceRepository->DownloadAsync(item);
+                        //if (ImGui::Button(itemName.toStdString().c_str()))
+                        //    resourceRepository->DownloadAsync(item);
+                        if (ImGui::Button(itemName.c_str()))
+                            item->StartDownload();
 
                         ImGui::EndDisabled();
                         ImGui::PopStyleColor();
@@ -130,9 +142,10 @@ void StylesView::Render()
                         ImGui::PushStyleColor(ImGuiCol_Button, ImGuiColor_Black);
                         ImGui::PushStyleColor(ImGuiCol_Text, ImGuiColor_Green);
 
-                        if (ImGui::Button(itemName.toStdString().c_str()))
+                        if (ImGui::Button(itemName.c_str()))
                         {
-                            m_viewModel->GetMapView()->SetMapStyleById(item.getId(), true);
+                            m_viewModel->GetMapView()->SetMapStyleById(item->GetID(), true);
+                            //m_viewModel->SetMapStyleById(item->GetID());
                             // Go to Main View
                         }
 
@@ -145,7 +158,7 @@ void StylesView::Render()
                         ImGui::PushStyleColor(ImGuiCol_Button, ImGuiColor_Black);
                         ImGui::BeginDisabled(true);
 
-                        ImGui::Button(itemName.toStdString().c_str());
+                        ImGui::Button(itemName.c_str());
 
                         ImGui::EndDisabled();
                         ImGui::PopStyleColor();
@@ -157,7 +170,7 @@ void StylesView::Render()
 
                     ImGui::SetCursorPosY(ImGui::GetCursorPosY() + (STYLE_IMAGE_SIZE.y - ImGui::GetFontSize()) / 2);
 
-                    ImGui::TextUnformatted(FormatFileSize(item.getTotalSize()).toStdString().c_str());
+                    ImGui::TextUnformatted(FormatFileSize(item->GetTotalSize()).toStdString().c_str());
 
                     itemIndex++;
                 }

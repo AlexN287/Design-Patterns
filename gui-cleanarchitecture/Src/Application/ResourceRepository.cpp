@@ -182,26 +182,26 @@ bool ResourceRepository::DownloadAsync( gem::ContentStoreItem& item )
     return false;
 }
 
-EItemState ResourceRepository::GetItemState( const gem::ContentStoreItem& item ) const
-{
-    switch (item.getStatus())
-    {
-    case gem::EContentStoreItemStatus::CIS_Completed:
-        return EItemState::Completed;
-    case gem::EContentStoreItemStatus::CIS_Unavailable:
-        return EItemState::Unavailable;
-    case gem::EContentStoreItemStatus::CIS_DownloadQueued:
-    case gem::EContentStoreItemStatus::CIS_DownloadWaiting:
-    case gem::EContentStoreItemStatus::CIS_DownloadWaitingFreeNetwork:
-    case gem::EContentStoreItemStatus::CIS_DownloadRunning:
-    case gem::EContentStoreItemStatus::CIS_UpdateWaiting:
-        return EItemState::InProgress;
-    case gem::EContentStoreItemStatus::CIS_Paused:
-        return EItemState::Paused;
-    }
-
-    return EItemState::Other;
-}
+//EItemState ResourceRepository::GetItemState( const gem::ContentStoreItem& item ) const
+//{
+//    switch (item.getStatus())
+//    {
+//    case gem::EContentStoreItemStatus::CIS_Completed:
+//        return EItemState::Completed;
+//    case gem::EContentStoreItemStatus::CIS_Unavailable:
+//        return EItemState::Unavailable;
+//    case gem::EContentStoreItemStatus::CIS_DownloadQueued:
+//    case gem::EContentStoreItemStatus::CIS_DownloadWaiting:
+//    case gem::EContentStoreItemStatus::CIS_DownloadWaitingFreeNetwork:
+//    case gem::EContentStoreItemStatus::CIS_DownloadRunning:
+//    case gem::EContentStoreItemStatus::CIS_UpdateWaiting:
+//        return EItemState::InProgress;
+//    case gem::EContentStoreItemStatus::CIS_Paused:
+//        return EItemState::Paused;
+//    }
+//
+//    return EItemState::Other;
+//}
 
 bool ResourceRepository::IsMapUpdateRunning() const
 {

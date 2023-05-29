@@ -50,7 +50,8 @@ void MapsView::Render()
     }
     else
     {
-        gem::ContentStoreItemList contentStoreItems = resourceRepository->GetMaps();
+        //gem::ContentStoreItemList contentStoreItems = resourceRepository->GetMaps();
+        IMapsCollectionPtr contentStoreItems = IMapsCollection::Produce(resourceRepository->GetMaps(), resourceRepository, textureRepository);
 
         ImGui::SetNextWindowBgAlpha( 0.8f );
 
@@ -76,29 +77,37 @@ void MapsView::Render()
 
             ImGui::TableHeadersRow();
 
-            for (auto item : contentStoreItems)
+            //for (auto item : contentStoreItems)
+            for (int i = 0; i < contentStoreItems->GetSize(); i++)
             {
-                auto itemState = resourceRepository->GetItemState( item );
+                //auto itemState = resourceRepository->GetItemState( item );
+                IMapElementPtr item = contentStoreItems->GetItem(i);
+                auto itemState = item->GetState();
 
                 if (m_mapFilterIndex != 0 && m_mapFilterIndex != (int)itemState)
                     continue;
 
-                gem::String itemName = item.getName();
-                itemName.fallbackToLegacyUnicode(); // needed to fix some Romanian legacy unicodes
+               // gem::String itemName = item.getName();
+               //itemName.fallbackToLegacyUnicode(); // needed to fix some Romanian legacy unicodes
+                item->FallbackToLegacyUnicode();
+                std::string itemName = item->GetName();
+
+                //std::string itemName = item->GetName();
 
                 if (itemState == EItemState::Paused)
-                    itemName = gem::String::formatString( u"[PAUSED %d%%] %s", item.getDownloadProgress(), itemName );
+                    itemName = item->FormatStringDownload(u"[PAUSED %d%%] %s");
 
                 if (itemState == EItemState::InProgress)
-                    itemName = gem::String::formatString( u"[%02d%%] %s", item.getDownloadProgress(), itemName );
+                    itemName = item->FormatStringDownload(u"[%02d%%] %s");
 
                 ImGui::TableNextRow();
 
                 ImGui::TableSetColumnIndex( 0 );
 
                 const ImVec2 COUNTRY_ICON_SIZE( DPI( 20 ), DPI( 20 ) );
-                gem::String countryCode = item.getCountryCodes()[0];
-                unsigned int textureId = textureRepository->GetTexture( resourceRepository->GetFlagImage( countryCode ), COUNTRY_ICON_SIZE.x, COUNTRY_ICON_SIZE.y );
+                //gem::String countryCode = item.getCountryCodes()[0];
+                //unsigned int textureId = textureRepository->GetTexture( resourceRepository->GetFlagImage( countryCode ), COUNTRY_ICON_SIZE.x, COUNTRY_ICON_SIZE.y );
+                unsigned int textureId = item->GetTexture(COUNTRY_ICON_SIZE.x, COUNTRY_ICON_SIZE.y);
                 ImGui::Image( (void*)textureId, COUNTRY_ICON_SIZE );
 
                 ImGui::TableSetColumnIndex( 1 );
@@ -111,8 +120,9 @@ void MapsView::Render()
                     ImGui::PushStyleColor( ImGuiCol_Button, ImGuiColor_Black );
                     ImGui::BeginDisabled( !m_viewModel->IsConnected() && itemState == EItemState::Paused );
 
-                    if (ImGui::Button( itemName.toStdString().c_str() ))
-                        resourceRepository->DownloadAsync( item );
+                    if (ImGui::Button( itemName.c_str() ))
+                        //resourceRepository->DownloadAsync( item );
+                        item->StartDownload();
 
                     ImGui::EndDisabled();
                     ImGui::PopStyleColor();
@@ -124,7 +134,7 @@ void MapsView::Render()
                     ImGui::PushStyleColor( ImGuiCol_Text, ImGuiColor_Green );
                     ImGui::BeginDisabled( true );
 
-                    ImGui::Button( itemName.toStdString().c_str() );
+                    ImGui::Button( itemName.c_str() );
 
                     ImGui::EndDisabled();
                     ImGui::PopStyleColor();
@@ -135,8 +145,8 @@ void MapsView::Render()
                 {
                     ImGui::PushStyleColor( ImGuiCol_Button, ImGuiColor_Black );
 
-                    if (ImGui::Button( itemName.toStdString().c_str() ))
-                        item.pauseDownload();
+                    if (ImGui::Button(itemName.c_str()))
+                        item->StopDownload();
 
                     ImGui::PopStyleColor();
                     break;
@@ -145,7 +155,7 @@ void MapsView::Render()
 
                 ImGui::TableSetColumnIndex( 2 );
 
-                ImGui::TextUnformatted( FormatFileSize( item.getTotalSize() ).toStdString().c_str() );
+                ImGui::TextUnformatted( FormatFileSize( item->GetTotalSize() ).toStdString().c_str() );
             }
 
             ImGui::EndTable();

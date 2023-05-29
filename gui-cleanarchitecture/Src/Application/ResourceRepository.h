@@ -46,7 +46,7 @@ public:
 
     bool DownloadAsync( gem::ContentStoreItem& item ) override;
 
-    EItemState GetItemState( const gem::ContentStoreItem& item ) const;
+    //EItemState GetItemState( const gem::ContentStoreItem& item ) const;
 
     bool IsMapUpdateRunning() const override;
     void SetCanApplyMapUpdate( bool canApplyMapUpdate ) override;

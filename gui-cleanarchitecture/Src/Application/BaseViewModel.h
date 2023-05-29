@@ -43,6 +43,14 @@ public:
 
     IMapViewPtr GetMapView();
 
+    void SetMapStyleById(LargeInteger id)
+    {
+        m_mapView->SetMapStyleById(id, true);
+        m_action = [&]() {
+            m_navigationService->GoToView(EView::Main);
+        };
+    }
+
 protected:
     void SetMenuItems( const MenuItems& items );
 

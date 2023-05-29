@@ -219,6 +219,9 @@
     <ClCompile Include="..\Src\Application\StylesViewModel.cpp">
       <Filter>Source Files\InterfaceAdapters\Presentation\Mvvm\ViewModels\ViewModelsImpl</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\Application\IMapService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\Application\MainUi.h">

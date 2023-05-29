@@ -16,14 +16,14 @@ enum class EResourceType
     Style
 };
 
-enum class EItemState
-{
-    Completed = 1,
-    Unavailable,
-    InProgress,
-    Paused,
-    Other
-};
+//enum class EItemState
+//{
+//    Completed = 1,
+//    Unavailable,
+//    InProgress,
+//    Paused,
+//    Other
+//};
 
 class IResourceRepositoryListener
 {
@@ -47,7 +47,7 @@ public:
 
     virtual bool DownloadAsync( gem::ContentStoreItem& item ) = 0;
 
-    virtual EItemState GetItemState( const gem::ContentStoreItem& item ) const = 0;
+    //virtual EItemState GetItemState( const gem::ContentStoreItem& item ) const = 0;
 
     virtual bool IsMapUpdateRunning() const = 0;
 

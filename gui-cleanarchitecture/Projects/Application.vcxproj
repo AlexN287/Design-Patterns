@@ -171,6 +171,7 @@
     <ClCompile Include="..\Src\Application\BaseSdlWindow.cpp" />
     <ClCompile Include="..\Src\Application\BaseView.cpp" />
     <ClCompile Include="..\Src\Application\BitmapImpl.cpp" />
+    <ClCompile Include="..\Src\Application\IMapService.cpp" />
     <ClCompile Include="..\Src\Application\MapsView.cpp" />
     <ClCompile Include="..\Src\Application\MapsViewModel.cpp" />
     <ClCompile Include="..\Src\Application\MapView.cpp" />

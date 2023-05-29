@@ -13,7 +13,7 @@
 #include "ResourceRepository.h"
 
 #include "MapView.h"
-
+#include "IMapService.h"
 #include "SDKUtils.h"
 
 #include "API/GEM_NavigationService.h"
@@ -394,5 +394,164 @@ void NavigationHandler::onDestinationReached( const gem::Landmark& )
     // execute async (otherwise dead-lock - the engine still keeps references
     // to used data sources until navigation completely ends after onDestinationReached)
     gem::OperationScheduler().timeoutOperation( 0, stopNavFunc, gem::ProgressListener(), true );
+}
+
+class MapElementImpl: public IMapElement
+{
+    gem::ContentStoreItem m_item;
+    IResourceRepository* m_resourceRepository;
+    ITextureRepository* m_textureRepository;
+
+public:
+    MapElementImpl(gem::ContentStoreItem item, IResourceRepository* resourceRepository, ITextureRepository* textureRepository):
+        m_item{item},
+        m_resourceRepository{resourceRepository},
+        m_textureRepository{textureRepository}
+    {
+    }
+
+    virtual long int GetID() const override
+    {
+        return m_item.getId();
+    }
+
+    virtual long int GetTotalSize() const override
+    {
+        return m_item.getTotalSize();
+    }
+
+    virtual std::string GetName() const override
+    {
+        return m_item.getName().toStdString().c_str();
+    }
+
+    virtual EItemState GetState() const override
+    {
+        switch (m_item.getStatus())
+        {
+        case gem::EContentStoreItemStatus::CIS_Completed:
+            return EItemState::Completed;
+        case gem::EContentStoreItemStatus::CIS_Unavailable:
+            return EItemState::Unavailable;
+        case gem::EContentStoreItemStatus::CIS_DownloadQueued:
+        case gem::EContentStoreItemStatus::CIS_DownloadWaiting:
+        case gem::EContentStoreItemStatus::CIS_DownloadWaitingFreeNetwork:
+        case gem::EContentStoreItemStatus::CIS_DownloadRunning:
+        case gem::EContentStoreItemStatus::CIS_UpdateWaiting:
+            return EItemState::InProgress;
+        case gem::EContentStoreItemStatus::CIS_Paused:
+            return EItemState::Paused;
+        }
+
+        return EItemState::Other;
+    }
+
+    virtual unsigned int GetTexture(int width, int height, bool sync=true) const override
+    {
+        return m_textureRepository->GetTexture(m_item.getImagePreview(), width, height, sync);
+    }
+
+    virtual void StartDownload() override
+    {
+        m_resourceRepository->DownloadAsync(m_item);
+    }
+
+    virtual void StopDownload() override
+    {
+        m_item.pauseDownload();
+    }
+
+    virtual bool IsImagePreviewAvailable() const override
+    {
+        return m_item.isImagePreviewAvailable();   
+    }
+
+    virtual gem::Image GetImagePreview() const override
+    {
+        return m_item.getImagePreview();
+    }
+
+    /*virtual int GetDownloadProgress() const override
+    {
+        return m_item.getDownloadProgress();
+    }*/
+
+    virtual gem::String getname2() override
+    {
+        return m_item.getName();
+    }
+
+    virtual std::string FormatStringDownload(const char16_t* format) override
+    {
+        gem::String name = m_item.getName();
+        return gem::String::formatString(format, m_item.getDownloadProgress(), name).toStdString();
+    }
+
+    virtual std::string FormatStringDownload(const char16_t* format, const char* text) override
+    {
+        gem::String name = m_item.getName();
+        return gem::String::formatString(format, text, name).toStdString();
+    }
+
+    virtual void FallbackToLegacyUnicode() override
+    {
+        gem::String countryCode = m_item.getCountryCodes()[0];
+        
+        //return s.fallbackToLegacyUnicode().toStdString();
+        
+        countryCode.fallbackToLegacyUnicode();
+    }
+
+    unsigned int GetTexture(const float iconSizeX, const float iconSizeY) const override
+    {
+        gem::String countryCode = m_item.getCountryCodes()[0];
+        return m_textureRepository->GetTexture(m_resourceRepository->GetFlagImage(countryCode), iconSizeX, iconSizeY);
+    }
+
+    virtual gem::StringListRef GetCountryCodes() override
+    {
+        return m_item.getCountryCodes();
+    }
+};
+
+class MapsCollectionImpl : public IMapsCollection
+{
+public:
+    MapsCollectionImpl(gem::ContentStoreItemList items, IResourceRepository* resourceRepository, ITextureRepository* textureRepository) :
+        m_items{ items },
+        m_resourceRepository{ resourceRepository },
+        m_textureRepository{ textureRepository }
+    {
+    }
+
+
+    virtual int GetSize() const override
+    {
+        return m_items.size();
+    }
+
+    virtual IMapElementPtr GetItem(int index) const override
+    {
+        return std::make_shared<MapElementImpl>(m_items[index], m_resourceRepository, m_textureRepository);
+    }
+
+    virtual bool isEmpty() const override
+    {
+        return m_items.empty();
+    }
+
+    
+
+private:
+    //std::vector<MapsCollectionImpl> m_mapsCollection;
+    gem::ContentStoreItemList m_items;
+    ITextureRepository* m_textureRepository;
+    IResourceRepository* m_resourceRepository;
+};
+
+
+std::shared_ptr<IMapsCollection> IMapsCollection::Produce(gem::ContentStoreItemList items, IResourceRepository* resourceRepository, ITextureRepository* textureRepository)
+{
+    return std::make_shared<MapsCollectionImpl>(items, resourceRepository, textureRepository);
 }
 
