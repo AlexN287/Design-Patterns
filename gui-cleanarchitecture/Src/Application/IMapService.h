@@ -86,20 +86,20 @@ public:
     virtual long int GetID() const = 0;
     virtual long int GetTotalSize() const = 0;
     virtual bool IsImagePreviewAvailable() const = 0;
-    virtual gem::Image GetImagePreview() const = 0;
+    ///virtual gem::Image GetImagePreview() const = 0;
     virtual std::string FormatStringDownload(const char16_t* format) = 0;
     virtual std::string FormatStringDownload(const char16_t* format, const char* text) = 0;
     virtual void FallbackToLegacyUnicode() = 0;
     
     //virtual int GetDownloadProgress() const = 0;
     virtual std::string GetName() const = 0;
-    virtual gem::String getname2() = 0;
+    //virtual gem::String getname2() = 0;
     virtual EItemState GetState() const = 0;
     virtual unsigned int GetTexture(int width, int height, bool sync = true) const = 0;
     virtual unsigned int GetTexture(const float iconSizeX, const float iconSizeY) const = 0;
     virtual void StartDownload() = 0;
     virtual void StopDownload() = 0;
-    virtual gem::StringListRef GetCountryCodes() = 0;
+    //virtual gem::StringListRef GetCountryCodes() = 0;
     virtual ~IMapElement() = default;
 };
 

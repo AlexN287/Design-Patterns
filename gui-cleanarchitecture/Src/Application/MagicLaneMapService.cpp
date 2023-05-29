@@ -466,20 +466,20 @@ public:
         return m_item.isImagePreviewAvailable();   
     }
 
-    virtual gem::Image GetImagePreview() const override
+    /*virtual gem::Image GetImagePreview() const override
     {
         return m_item.getImagePreview();
-    }
+    }*/
 
     /*virtual int GetDownloadProgress() const override
     {
         return m_item.getDownloadProgress();
     }*/
 
-    virtual gem::String getname2() override
+    /*virtual gem::String getname2() override
     {
         return m_item.getName();
-    }
+    }*/
 
     virtual std::string FormatStringDownload(const char16_t* format) override
     {
@@ -496,9 +496,6 @@ public:
     virtual void FallbackToLegacyUnicode() override
     {
         gem::String countryCode = m_item.getCountryCodes()[0];
-        
-        //return s.fallbackToLegacyUnicode().toStdString();
-        
         countryCode.fallbackToLegacyUnicode();
     }
 
@@ -508,10 +505,10 @@ public:
         return m_textureRepository->GetTexture(m_resourceRepository->GetFlagImage(countryCode), iconSizeX, iconSizeY);
     }
 
-    virtual gem::StringListRef GetCountryCodes() override
+    /*virtual gem::StringListRef GetCountryCodes() override
     {
         return m_item.getCountryCodes();
-    }
+    }*/
 };
 
 class MapsCollectionImpl : public IMapsCollection

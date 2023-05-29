@@ -118,7 +118,7 @@ void NavigationView::Render()
                             if ( ImGui::CalcTextSize( str.ToStdString().c_str() ).x < lastColumnSize )
                             {
                                 lines.push_back( str );
-                                instructionText.SetString(instructionText.Right( instructionText.Size() - i - 1 ));
+                                instructionText.SetString(instructionText.Right(instructionText.Size() - i - 1));
                                 break;
                             }
                         }
